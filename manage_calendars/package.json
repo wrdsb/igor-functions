@@ -1,7 +1,7 @@
 {
-  "name": "short-urls",
+  "name": "manage_calendars",
   "version": "0.0.1",
-  "description": "Modifies Short URLs based on messages from the short_urls_incoming Service Bus topic.",
+  "description": "Modifies Calendars based on messages from the calendars_incoming Service Bus topic.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

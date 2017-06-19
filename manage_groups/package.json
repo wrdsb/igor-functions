@@ -1,5 +1,5 @@
 {
-  "name": "groups",
+  "name": "manage_groups",
   "version": "0.0.1",
   "description": "Modifies Groups based on messages from the groups_incoming Service Bus topic.",
   "main": "index.js",

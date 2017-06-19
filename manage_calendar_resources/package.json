@@ -1,7 +1,7 @@
 {
-  "name": "calendars",
+  "name": "manage_calendar_resources",
   "version": "0.0.1",
-  "description": "Modifies Calendars based on messages from the calendars_incoming Service Bus topic.",
+  "description": "Modifies Calendar Resources based on messages from the calendar_resources_incoming Service Bus topic.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

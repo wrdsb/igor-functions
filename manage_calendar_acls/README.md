@@ -1,4 +1,4 @@
-# Create Calendar ACL
+# Manage Calendar ACLs
 
 https://developers.google.com/google-apps/calendar/v3/reference/acl
 
