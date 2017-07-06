@@ -5,7 +5,7 @@
       "name": "message",
       "topicName": "ipps_jobs_changes",
       "subscriptionName": "igor-functions",
-      "connection": "AzureWebJobsServiceBus",
+      "connection": "RootListenCodexAccessKey",
       "accessRights": "listen",
       "direction": "in"
     }

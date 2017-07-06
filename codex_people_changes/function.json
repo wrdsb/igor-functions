@@ -5,7 +5,7 @@
       "name": "message",
       "topicName": "people_changes",
       "subscriptionName": "igor-functions",
-      "connection": "AzureWebJobsServiceBus",
+      "connection": "RootListenCodexAccessKey",
       "accessRights": "listen",
       "direction": "in"
     }
