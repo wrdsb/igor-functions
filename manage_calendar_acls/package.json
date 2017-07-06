@@ -1,0 +1,15 @@
+{
+  "name": "manage_calendar_acls",
+  "version": "0.0.1",
+  "description": "Modifies Calendar ACLs based on messages from the calendar_acls_incoming Service Bus topic.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^19.0.0"
+  }
+}

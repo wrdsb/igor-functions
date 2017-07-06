@@ -1,0 +1,13 @@
+{
+  "bindings": [
+    {
+      "type": "serviceBusTrigger",
+      "name": "message",
+      "topicName": "calendar_acls_incoming",
+      "subscriptionName": "igor-functions",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
+      "direction": "in"
+    }
+  ]
+}
