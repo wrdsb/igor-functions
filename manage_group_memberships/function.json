@@ -1,0 +1,13 @@
+{
+  "bindings": [
+    {
+      "type": "serviceBusTrigger",
+      "name": "message",
+      "topicName": "group_memberships_incoming",
+      "subscriptionName": "igor-functions",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
+      "direction": "in"
+    }
+  ]
+}
