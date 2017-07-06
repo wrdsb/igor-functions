@@ -1,0 +1,15 @@
+{
+  "name": "manage_group_settings",
+  "version": "0.0.1",
+  "description": "Modifies Group Settings based on messages from the group_settings_incoming Service Bus topic.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^19.0.0"
+  }
+}
