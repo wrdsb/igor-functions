@@ -1,0 +1,13 @@
+{
+  "bindings": [
+    {
+      "type": "serviceBusTrigger",
+      "name": "message",
+      "topicName": "ipps_jobs_changes",
+      "subscriptionName": "igor-functions",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "listen",
+      "direction": "in"
+    }
+  ]
+}
