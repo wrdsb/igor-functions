@@ -9,6 +9,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "adal-node": "^0.1.22",
+    "azure-keyvault": "^2.0.1-preview",
     "google-auth-library": "^0.10.0",
     "googleapis": "^19.0.0"
   }
