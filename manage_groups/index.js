@@ -11,12 +11,7 @@ module.exports = function (context, message) {
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
 
-    var user_address = message.user_address;
-    var group_address = message.group_address;
-
-    user_address = 'igor@googleapps.wrdsb.ca';
-    group_address = 'software-development@googleapps.wrdsb.ca';
-
+    // prep our credentials for G Suite APIs
     var jwtClient = new google.auth.JWT(
         client_email,
         null,
@@ -24,9 +19,28 @@ module.exports = function (context, message) {
         user_address
     );
 
+    var user_address  = message.user_address;
+    var group_address = message.group_address;
+    var operation     = message.operation;
+
+    user_address = 'igor@googleapps.wrdsb.ca';
+    group_address = 'software-development@googleapps.wrdsb.ca';
+    operation = 'create';
+
     // var options = {};
 
-    read_group(group_address);
+    switch (operation) {
+        case 'read':
+            read_group(group_address);
+            break;
+        case 'create':
+            create_group(group_address);
+            break;
+        case 'update':
+            update_group(group_address);
+            break;
+    }
+
     context.done();
 
     function read_group(group_address) {
@@ -77,5 +91,9 @@ module.exports = function (context, message) {
 
     function create_group(group_address) {
         context.log('Create Group');
+    }
+
+    function update_group(group_address) {
+        context.log('Update Group');
     }
 };
