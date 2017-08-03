@@ -3,8 +3,7 @@
     {
       "type": "serviceBusTrigger",
       "name": "message",
-      "topicName": "groups_to_read",
-      "subscriptionName": "igor-functions",
+      "queueName": "groups_to_read",
       "connection": "AzureWebJobsServiceBus",
       "accessRights": "manage",
       "direction": "in"
