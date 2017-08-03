@@ -11,7 +11,7 @@ module.exports = function (context, message) {
     var private_key = process.env.private_key;
     var user_address = 'igor@googleapps.wrdsb.ca';
 
-    var group_address     = message.group.email;
+    var group_email     = message.group.email;
 
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
@@ -30,11 +30,11 @@ module.exports = function (context, message) {
         auth: jwtClient,
         
         // used by Groups (Directory) API 'GET'
-        groupKey: group_address,
+        groupKey: group_email,
 
         // same as groupKey, but used by Groups Settings (G Suite Admin SDK) API 'GET'
         // because, you know, why standardize the name of our unique identifier?
-        groupUniqueId: group_address,
+        groupUniqueId: group_email,
     };
 
     jwtClient.authorize(function(err, tokens) {
