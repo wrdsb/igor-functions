@@ -1,6 +1,8 @@
 module.exports = function (context, message) {
     context.log(message);
 
+    var parseXML = require('xml2js').parseString;
+
     var google = require('googleapis');
     var googleAuth = require('google-auth-library');
 
@@ -63,7 +65,7 @@ module.exports = function (context, message) {
                     context.log(err);
                     return;
                 }
-                context.log(resp);
+                context.log(parseXML(resp));
             }
         );
     });
