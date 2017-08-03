@@ -1,8 +1,6 @@
 module.exports = function (context, message) {
     context.log(message);
 
-    var parseXML = require('xml2js').parseString;
-
     var google = require('googleapis');
     var googleAuth = require('google-auth-library');
 
@@ -37,6 +35,10 @@ module.exports = function (context, message) {
         // same as groupKey, but used by Groups Settings (G Suite Admin SDK) API 'GET'
         // because, you know, why standardize the name of our unique identifier?
         groupUniqueId: group_email,
+
+        // specify we want JSON back from the API.
+        // Group Settings API defaults to XML (or Atom), despite the docs
+        alt: "json"
     };
 
     jwtClient.authorize(function(err, tokens) {
@@ -65,7 +67,7 @@ module.exports = function (context, message) {
                     context.log(err);
                     return;
                 }
-                context.log(parseXML(resp));
+                context.log(resp);
             }
         );
     });
