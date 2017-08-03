@@ -11,7 +11,7 @@ module.exports = function (context, message) {
     var private_key = process.env.private_key;
     var user_address = 'igor@googleapps.wrdsb.ca';
 
-    var group_email     = message.group.email;
+    var group_email = message.group.email;
     
     // stores our group in the end
     var group = {};
