@@ -11,13 +11,13 @@ module.exports = function (context, message) {
     var private_key = process.env.private_key;
     var user_address = 'igor@googleapps.wrdsb.ca';
 
+    // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
+    private_key = private_key.split('\\n').join("\n");
+
     var group_email = message.group.email;
     
     // stores our group in the end
     var group = {};
-
-    // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
-    private_key = private_key.split('\\n').join("\n");
 
     // prep our credentials for G Suite APIs
     var jwtClient = new google.auth.JWT(
