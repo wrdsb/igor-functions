@@ -11,14 +11,7 @@ module.exports = function (context, message) {
     var private_key = process.env.private_key;
     var user_address = 'igor@googleapps.wrdsb.ca';
 
-    var group_address     = message.group_address;
-    var group_name        = message.group_name;
-    var group_description = message.group_description;
-
-    // fake out our input for now
-    group_address = 'software-development@googleapps.wrdsb.ca';
-    group_name = "ITS - Software Development";
-    group_description = "For members of the Software Development section of ITS.";
+    var group_address     = message.group.email;
 
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
