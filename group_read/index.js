@@ -12,6 +12,9 @@ module.exports = function (context, message) {
     var user_address = 'igor@googleapps.wrdsb.ca';
 
     var group_email     = message.group.email;
+    
+    // stores our group in the end
+    var group = {};
 
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
@@ -23,8 +26,6 @@ module.exports = function (context, message) {
         private_key, ['https://www.googleapis.com/auth/admin.directory.group','https://www.googleapis.com/auth/apps.groups.settings'], // an array of auth scopes
         user_address
     );
-
-    // var options = {};
 
     var params = {
         auth: jwtClient,
@@ -41,36 +42,41 @@ module.exports = function (context, message) {
         alt: "json"
     };
 
+    function getGroup() {
+        return new Promise(function(resolve, reject) {
+            directory.groups.get(
+                params,
+                function(err, res) {
+                    if (err) { return reject(err); }
+                    return resolve(res);
+                }
+            );
+        });
+    }
+
+    function getGroupSettings() {
+        return new Promise(function(resolve, reject) {
+            groupssettings.groups.get(
+                params,
+                function(err, res) {
+                    if (err) { return reject(err); }
+                    return resolve(res);
+                }
+            );
+        });
+    }
+
+
     jwtClient.authorize(function(err, tokens) {
         if (err) {
             context.log(err);
             return;
         }
-
-        directory.groups.get(
-            params,
-            //options,
-            function(err, resp) {
-                if (err) {
-                    context.log(err);
-                    return;
-                }
-                context.log(resp);
-            }
-        );
-
-        groupssettings.groups.get(
-            params,
-            //options,
-            function(err, resp) {
-                if (err) {
-                    context.log(err);
-                    return;
-                }
-                context.log(resp);
-            }
-        );
+        Promise.all([getGroup(), getGroupSettings()])
+            .then(function(groupParts) {
+                group = Object.assign(groupParts[0], groupParts[1]);
+                context.log(group);
+                context.done();
+            });
     });
-
-    context.done();
 };
