@@ -1,0 +1,12 @@
+{
+  "bindings": [
+    {
+      "type": "serviceBusTrigger",
+      "name": "message",
+      "queueName": "calendar_resources_to_read",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
+      "direction": "in"
+    }
+  ]
+}
