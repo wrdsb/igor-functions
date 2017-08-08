@@ -1,0 +1,15 @@
+{
+  "name": "group_delete",
+  "version": "0.0.1",
+  "description": "Deletes Groups based on messages from the groups_to_delete Service Bus queue.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^19.0.0"
+  }
+}
