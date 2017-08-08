@@ -43,7 +43,7 @@ module.exports = function (context, message) {
             params,
             function(err, response) {
                 if (err) { 
-                    context.log(err);
+                    context.done(err);
                 } else {
                     context.log(response.statusCode);
                     context.done();
