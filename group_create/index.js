@@ -1,6 +1,4 @@
 module.exports = function (context, message) {
-    context.log(message);
-
     var series = require('async/series');
 
     var google = require('googleapis');
@@ -17,6 +15,7 @@ module.exports = function (context, message) {
     private_key = private_key.split('\\n').join("\n");
 
     var group_to_create = message.group;
+    context.log('Create group: ' + group_to_create.email);
     
     // stores our group in the end
     var group_created = {};
@@ -72,7 +71,8 @@ module.exports = function (context, message) {
             if (err) {
                 context.done(err);
             } else {
-                context.log(results);
+                group_created = Object.assign(results[0], results[1]);
+                context.log(group_created);
                 context.done();
             }
         });

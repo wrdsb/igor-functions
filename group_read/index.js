@@ -1,4 +1,6 @@
 module.exports = function (context, message) {
+    var series = require('async/series');
+
     var google = require('googleapis');
     var googleAuth = require('google-auth-library');
 
@@ -41,41 +43,41 @@ module.exports = function (context, message) {
         alt: "json"
     };
 
-    function getGroup() {
-        return new Promise(function(resolve, reject) {
-            directory.groups.get(
-                params,
-                function(err, res) {
-                    if (err) { return reject(err); }
-                    return resolve(res);
-                }
-            );
-        });
-    }
-
-    function getGroupSettings() {
-        return new Promise(function(resolve, reject) {
-            groupssettings.groups.get(
-                params,
-                function(err, res) {
-                    if (err) { return reject(err); }
-                    return resolve(res);
-                }
-            );
-        });
-    }
-
-
     jwtClient.authorize(function(err, tokens) {
         if (err) {
             context.log(err);
             return;
         }
-        Promise.all([getGroup(), getGroupSettings()])
-            .then(function(groupParts) {
-                group = Object.assign(groupParts[0], groupParts[1]);
+        series([
+            function getGroup(getGroupCallback) {
+                directory.groups.get(params, function(err, result) {
+                    if (err) {
+                        getGroupCallback(new Error(err));
+                        return;
+                    }
+                    context.log(result);
+                    getGroupCallback(null, result);
+                });
+            },
+            function getGroupSettings(getGroupSettingsCallback) {
+                groupssettings.groups.get(params, function(err, result) {
+                    if (err) {
+                        getGroupSettingsCallback(new Error(err));
+                        return;
+                    }
+                    context.log(result);
+                    getGroupSettingsCallback(null, result);
+                });
+            }
+        ],
+        function (err, results) {
+            if (err) {
+                context.done(err);
+            } else {
+                group = Object.assign(results[0], results[1]);
                 context.log(group);
                 context.done();
-            });
+            }
+        });
     });
 };
