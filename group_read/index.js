@@ -1,6 +1,4 @@
 module.exports = function (context, message) {
-    context.log(message);
-
     var google = require('googleapis');
     var googleAuth = require('google-auth-library');
 
@@ -15,6 +13,7 @@ module.exports = function (context, message) {
     private_key = private_key.split('\\n').join("\n");
 
     var group_email = message.group.email;
+    context.log('Read group: ' + group_email);
     
     // stores our group in the end
     var group = {};
