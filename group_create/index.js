@@ -1,7 +1,7 @@
 module.exports = function (context, message) {
     context.log(message);
 
-    var waterfall = require('async/waterfall');
+    var series = require('async/series');
 
     var google = require('googleapis');
     var googleAuth = require('google-auth-library');
@@ -46,7 +46,7 @@ module.exports = function (context, message) {
             context.log(err);
             return;
         }
-        waterfall([
+        series([
             function createGroup(createGroupCallback) {
                 directory.groups.insert(params, function (err, result) {
                     if (err) {
@@ -68,11 +68,11 @@ module.exports = function (context, message) {
                 });
             }
         ],
-        function (err, result) {
+        function (err, results) {
             if (err) {
                 context.done(err);
             } else {
-                context.log(result);
+                context.log(results);
                 context.done();
             }
         });
