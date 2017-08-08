@@ -37,6 +37,7 @@ module.exports = function (context, message) {
 
         // the Groups resource to create
         resource: group_to_update,
+        groupKey: group_to_update.email,
         groupUniqueId: group_to_update.email
     };
 
