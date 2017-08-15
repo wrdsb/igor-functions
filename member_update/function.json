@@ -7,6 +7,15 @@
       "connection": "AzureWebJobsServiceBus",
       "accessRights": "manage",
       "direction": "in"
+    },
+    {
+      "type" : "serviceBus",
+      "name" : "members_activity_topic",
+      "topicName" : "members_activity",
+      "subscriptionName" : "member_update",
+      "connection" : "AzureWebJobsServiceBus",
+      "accessRights" : "manage",
+      "direction" : "out"
     }
   ]
 }
