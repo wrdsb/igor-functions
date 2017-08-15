@@ -1,0 +1,12 @@
+{
+  "bindings": [
+    {
+      "type": "serviceBusTrigger",
+      "name": "message",
+      "queueName": "gmail_messages_to_send",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
+      "direction": "in"
+    }
+  ]
+}

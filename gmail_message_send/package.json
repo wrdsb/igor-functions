@@ -1,0 +1,15 @@
+{
+  "name": "gmail_message_send",
+  "version": "0.0.1",
+  "description": "Sends Gmail Messages based on messages from the gmail_messages_to_send Service Bus queue.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^19.0.0"
+  }
+}
