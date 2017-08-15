@@ -1,0 +1,15 @@
+{
+  "name": "member_create",
+  "version": "0.0.1",
+  "description": "Creates Members based on messages from the members_to_create Service Bus queue.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^19.0.0"
+  }
+}
