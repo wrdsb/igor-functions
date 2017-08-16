@@ -17,7 +17,7 @@ module.exports = function (context, message) {
     var group_to_update = message.group;
     context.log('Update group: ' + group_to_update.email);
     
-    // stores our group in the end
+    // stores our Group in the end
     var group_updated = {};
 
     // prep our credentials for G Suite APIs
@@ -36,7 +36,7 @@ module.exports = function (context, message) {
         // Group Settings API defaults to XML (or Atom), despite the docs
         alt: "json",
 
-        // the Groups resource to create
+        // the Group to update
         resource: group_to_update,
         groupKey: group_to_update.email,
         groupUniqueId: group_to_update.email

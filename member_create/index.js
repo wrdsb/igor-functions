@@ -36,7 +36,7 @@ module.exports = function (context, message) {
         // Group Settings API defaults to XML (or Atom), despite the docs
         alt: "json",
 
-        // the Groups resource to create
+        // the member to create
         resource: member_to_create,
         groupKey: member_to_create.groupKey
     };

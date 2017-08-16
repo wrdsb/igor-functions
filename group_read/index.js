@@ -17,7 +17,7 @@ module.exports = function (context, message) {
     var group_email = message.group.email;
     context.log('Read group: ' + group_email);
     
-    // stores our group in the end
+    // stores our Group in the end
     var group = {};
 
     // prep our credentials for G Suite APIs
