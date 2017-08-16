@@ -18,7 +18,8 @@ module.exports = function (context, message) {
     var jwtClient = new google.auth.JWT(
         client_email,
         null,
-        private_key, ['https://www.googleapis.com/auth/admin.directory.group','https://www.googleapis.com/auth/apps.groups.settings'], // an array of auth scopes
+        private_key,
+        ['https://www.googleapis.com/auth/admin.directory.group','https://www.googleapis.com/auth/apps.groups.settings'], // an array of auth scopes
         user_address
     );
 
