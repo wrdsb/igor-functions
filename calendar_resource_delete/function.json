@@ -10,7 +10,7 @@
     },
     {
       "type" : "serviceBus",
-      "name" : "activity_topic",
+      "name" : "$return",
       "topicName" : "calendar_resources_activity",
       "subscriptionName" : "calendar_resource_delete",
       "connection" : "AzureWebJobsServiceBus",

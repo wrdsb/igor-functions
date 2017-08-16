@@ -10,7 +10,7 @@
     },
     {
       "type" : "serviceBus",
-      "name" : "activity_topic",
+      "name" : "$return",
       "topicName" : "calendars_activity",
       "subscriptionName" : "calendar_read",
       "connection" : "AzureWebJobsServiceBus",

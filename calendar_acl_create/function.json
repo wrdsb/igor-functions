@@ -10,7 +10,7 @@
     },
     {
       "type" : "serviceBus",
-      "name" : "activity_topic",
+      "name" : "$return",
       "topicName" : "calendar_acls_activity",
       "subscriptionName" : "calendar_acl_create",
       "connection" : "AzureWebJobsServiceBus",
