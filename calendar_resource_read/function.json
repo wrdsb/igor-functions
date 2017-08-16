@@ -7,6 +7,15 @@
       "connection": "AzureWebJobsServiceBus",
       "accessRights": "manage",
       "direction": "in"
+    },
+    {
+      "type" : "serviceBus",
+      "name" : "activity_topic",
+      "topicName" : "calendar_resources_activity",
+      "subscriptionName" : "calendar_resource_read",
+      "connection" : "AzureWebJobsServiceBus",
+      "accessRights" : "manage",
+      "direction" : "out"
     }
   ]
 }
