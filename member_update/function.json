@@ -10,7 +10,7 @@
     },
     {
       "type" : "serviceBus",
-      "name" : "members_activity_topic",
+      "name" : "activity_topic",
       "topicName" : "members_activity",
       "subscriptionName" : "member_update",
       "connection" : "AzureWebJobsServiceBus",
