@@ -17,7 +17,7 @@ module.exports = function (context, message) {
     var member_to_create = message;
     context.log('Create membership for ' + member_to_create.email + ' in group ' + member_to_create.groupKey);
     
-    // stores our group in the end
+    // stores our member in the end
     var member_created = {};
 
     // prep our credentials for G Suite APIs
