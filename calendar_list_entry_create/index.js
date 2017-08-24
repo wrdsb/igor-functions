@@ -15,6 +15,7 @@ module.exports = function (context, message) {
 
     var calendar_list_entry_params = message.params;
     var calendar_user = message.user;
+    context.log('For user ' + calendar_user + ' create list entry: ');
     context.log(calendar_list_entry_params);
     
     // stores our calendar list entry in the end
