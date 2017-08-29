@@ -11,37 +11,27 @@ module.exports = function (context, message) {
     var private_key = process.env.private_key;
     var user_address = 'igor@googleapps.wrdsb.ca';
 
-    // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
 
     var member_to_delete = message;
-    context.log('Delete membership for ' + member_to_delete.email + ' in group ' + member_to_delete.groupKey);
-    
-    // stores our member in the end
-    var member_deleted = {};
+    context.log('Delete membership for ' + member_to_create.email + ' in group ' + member_to_create.groupKey);
 
-    // prep our credentials for G Suite APIs
     var jwtClient = new google.auth.JWT(
         client_email,
         null,
         private_key,
-        ['https://www.googleapis.com/auth/admin.directory.group','https://www.googleapis.com/auth/admin.directory.group.member'], // an array of auth scopes
+        ['https://www.googleapis.com/auth/admin.directory.group', 'https://www.googleapis.com/auth/admin.directory.group.member'],
         user_address
     );
 
     var params = {
         auth: jwtClient,
-
-        // specify we want JSON back from the API.
-        // Group Settings API defaults to XML (or Atom), despite the docs
         alt: "json",
-
-        // the member to create
         memberKey: member_to_delete.email,
         groupKey: member_to_delete.groupKey
     };
 
-    jwtClient.authorize(function(err, tokens) {
+    jwtClient.authorize(function (err, tokens) {
         if (err) {
             context.log(err);
             return;
@@ -58,14 +48,14 @@ module.exports = function (context, message) {
                 });
             }
         ],
-        function (err, results) {
-            if (err) {
-                context.done(err);
-            } else {
-                member_deleted = results[0];
-                context.log(member_deleted);
-                context.done();
-            }
-        });
+            function (err, results) {
+                if (err) {
+                    context.done(err);
+                } else {
+                    //Success: Empty Response Body
+                    context.log('Membership deleted.');
+                    context.done();
+                }
+            });
     });
 };
