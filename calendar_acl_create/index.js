@@ -15,8 +15,8 @@ module.exports = function (context, message) {
 
     var calendar_acl_to_create = message.acl;
     var calendar_id = message.calendar_id;
-    context.log(calendar_acl_to_create);
-    
+    context.log('Create ACL ' + calendar_acl_to_create + ' for ' + calendar_id);
+
     // stores our calendar in the end
     var calendar_acl_created = {};
 
