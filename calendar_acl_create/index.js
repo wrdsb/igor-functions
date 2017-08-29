@@ -15,7 +15,7 @@ module.exports = function (context, message) {
 
     var calendar_acl_to_create = message.acl;
     var calendar_id = message.calendar_id;
-    context.log('Create ACL ' + calendar_acl_to_create + ' for ' + calendar_id);
+    context.log('Create ' + calendar_acl_to_create.role + ' ACL for ' + calendar_acl_to_create.scope.value + ' on ' + calendar_id);
 
     // stores our calendar in the end
     var calendar_acl_created = {};
