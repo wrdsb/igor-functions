@@ -50,6 +50,7 @@ module.exports = function (context, message) {
             function createCalendarAcl(createCalendarAclCallback) {
                 calendar.acl.insert(params, function (err, result) {
                     if (err) {
+                        context.log(result);
                         createCalendarAclCallback(new Error(err));
                         return;
                     }
