@@ -6,7 +6,7 @@ module.exports = function (context, message) {
 
     var client_email = process.env.client_email;
     var private_key = process.env.private_key;
-    var user_address = 'igor@googleapps.wrdsb.ca';
+    var user_address = 'igor@wrdsb.ca';
 
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
