@@ -50,6 +50,7 @@ module.exports = function (context, message) {
             function createMember(createMemberCallback) {
                 directory.members.insert(params, function (err, result) {
                     if (err) {
+                        context.log(result);
                         createMemberCallback(new Error(err));
                         return;
                     }
