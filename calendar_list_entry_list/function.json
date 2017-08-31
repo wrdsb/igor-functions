@@ -1,0 +1,28 @@
+{
+  "bindings": [
+    {
+      "type": "serviceBusTrigger",
+      "name": "message",
+      "queueName": "calendar_list_entries_to_list",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
+      "direction": "in"
+    },
+    {
+      "type" : "serviceBus",
+      "name" : "$return",
+      "topicName" : "calendar_list_entries_activity",
+      "subscriptionName" : "calendar_list_entry_create",
+      "connection" : "AzureWebJobsServiceBus",
+      "accessRights" : "manage",
+      "direction" : "out"
+    },
+    {
+      "type": "blob",
+      "name": "resultBlob",
+      "path": "calendar-list-entries/{user}.json",
+      "connection": "wrdsbigor_STORAGE",
+      "direction": "out"
+    }
+  ]
+}
