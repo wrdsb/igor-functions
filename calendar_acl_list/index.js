@@ -45,7 +45,6 @@ module.exports = function (context, message) {
                 context.done(err);
             }
             context.log(result);
-            context.done();
         });
     });
 
