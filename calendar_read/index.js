@@ -8,12 +8,12 @@ module.exports = function (context, message) {
 
     var client_email = process.env.client_email;
     var private_key = process.env.private_key;
-    var user_address = 'igor@googleapps.wrdsb.ca';
+    var user_address = 'igor@wrdsb.ca';
 
     private_key = private_key.split('\\n').join("\n");
 
-    var calendar_to_read = message;
-    context.log(calendar_to_read);
+    var calendar_to_read = message.calendarId;
+    context.log('Read calendar ' + calendar_to_read);
 
     var calendar_read = {};
 
@@ -53,8 +53,14 @@ module.exports = function (context, message) {
                     context.done(err);
                 } else {
                     calendar_read = results[0];
-                    context.log(calendar_read);
-                    context.done();
+                    var topic_message = {
+                        'function': 'calendar_read',
+                        'calendarId': calendar_to_read,
+                        'result': calendar_read
+                    };
+                    context.log(topic_message);
+                    context.bindings.resultBlob = JSON.stringify(topic_message);
+                    context.done(null, topic_message);
                 }
             });
     });
