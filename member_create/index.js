@@ -50,10 +50,11 @@ module.exports = function (context, message) {
             function createMember(createMemberCallback) {
                 directory.members.insert(params, function (err, result) {
                     if (err) {
-                        context.log("Result: ");
-                        context.log(result);
-                        context.log("Error: ");
-                        context.log(JSON.stringify(err));
+                        if (err.code == 409) {
+                            result = "Member already exists.";
+                            context.log(result);
+                            createMemberCallback(null, result);
+                        }
                         createMemberCallback(new Error(err));
                         return;
                     }
