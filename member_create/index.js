@@ -54,6 +54,7 @@ module.exports = function (context, message) {
                             result = "Member already exists.";
                             context.log(result);
                             createMemberCallback(null, result);
+                            return;
                         }
                         createMemberCallback(new Error(err));
                         return;
