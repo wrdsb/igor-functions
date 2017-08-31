@@ -42,11 +42,12 @@ module.exports = function (context, message) {
         }
         directory.groups.delete(
             params,
-            function(err, response) {
+            function(err, result) {
                 if (err) { 
+                    context.log(result);
                     context.done(err);
                 } else {
-                    context.log(response);
+                    context.log(result);
                     context.done();
                 }
             }

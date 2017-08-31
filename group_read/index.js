@@ -53,6 +53,7 @@ module.exports = function (context, message) {
             function getGroup(getGroupCallback) {
                 directory.groups.get(params, function(err, result) {
                     if (err) {
+                        context.log(result);
                         getGroupCallback(new Error(err));
                         return;
                     }
@@ -63,6 +64,7 @@ module.exports = function (context, message) {
             function getGroupSettings(getGroupSettingsCallback) {
                 groupssettings.groups.get(params, function(err, result) {
                     if (err) {
+                        context.log(result);
                         getGroupSettingsCallback(new Error(err));
                         return;
                     }

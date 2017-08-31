@@ -51,6 +51,7 @@ module.exports = function (context, message) {
             function updateGroup(updateGroupCallback) {
                 directory.groups.update(params, function (err, result) {
                     if (err) {
+                        context.log(result);
                         updateGroupCallback(new Error(err));
                         return;
                     }
@@ -61,6 +62,7 @@ module.exports = function (context, message) {
             function updateGroupSettings(updateGroupSettingsCallback) {
                 groupssettings.groups.update(params, function (err, result) {
                     if (err) {
+                        context.log(result);
                         updateGroupSettingsCallback(new Error(err));
                         return;
                     }

@@ -50,6 +50,7 @@ module.exports = function (context, message) {
             function createGroup(createGroupCallback) {
                 directory.groups.insert(params, function (err, result) {
                     if (err) {
+                        context.log(result);
                         createGroupCallback(new Error(err));
                         return;
                     }
@@ -60,6 +61,7 @@ module.exports = function (context, message) {
             function createGroupSettings(createGroupSettingsCallback) {
                 groupssettings.groups.update(params, function (err, result) {
                     if (err) {
+                        context.log(result);
                         createGroupSettingsCallback(new Error(err));
                         return;
                     }

@@ -51,6 +51,7 @@ module.exports = function (context, message) {
             function createCalendarListEntry(createCalendarListEntryCallback) {
                 calendar.calendarList.insert(params, function (err, result) {
                     if (err) {
+                        context.log(result);
                         createCalendarListEntryCallback(new Error(err));
                         return;
                     }

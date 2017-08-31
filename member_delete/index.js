@@ -50,6 +50,7 @@ module.exports = function (context, message) {
             function deleteMember(deleteMemberCallback) {
                 directory.members.delete(params, function (err, result) {
                     if (err) {
+                        context.log(result);
                         deleteMemberCallback(new Error(err));
                         return;
                     }
