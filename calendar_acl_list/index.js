@@ -36,18 +36,21 @@ module.exports = function (context, message) {
 
     jwtClient.authorize(function(err, tokens) {
         if (err) {
-            context.log(err);
-            return;
+            context.done(err);
+        } else {
+            calendar.acl.list(params, function (err, result) {
+                if (err) {
+                    context.log(result);
+                    context.done(err);
+                } else {
+                    var message = {
+                        'function': 'calendar_acl_list',
+                        'result': result
+                    };
+                    context.log(JSON.stringify(message));
+                }
+            });
         }
-        calendar.acl.list(params, function (err, result) {
-            if (err) {
-                context.log(result);
-                context.done(err);
-                return;
-            }
-            context.log(result);
-        });
     });
-
-    context.done();
+    context.done(null, message);
 };
