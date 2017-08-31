@@ -58,7 +58,7 @@ module.exports = function (context, message) {
                         'calendarId': calendar_to_read,
                         'result': calendar_read
                     };
-                    context.log(topic_message);
+                    context.log(JSON.stringify(topic_message));
                     context.bindings.resultBlob = JSON.stringify(topic_message);
                     context.done(null, topic_message);
                 }
