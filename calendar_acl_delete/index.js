@@ -25,10 +25,10 @@ module.exports = function (context, message) {
     );
 
     var params = {
-    	auth:jwtClient,
-    	alt:json,
-    	calendarId : calendar_id,
-    	ruleId : calendar_acl_to_delete
+    	auth: jwtClient,
+    	alt: "json",
+    	calendarId: calendar_id,
+    	ruleId: calendar_acl_to_delete
     };
 
     jwtClient.authorize(function(err, tokens) {
