@@ -43,14 +43,14 @@ module.exports = function (context, message) {
                     context.log(result);
                     context.done(err);
                 } else {
-                    var message = {
+                    var topic_message = {
                         'function': 'calendar_acl_list',
                         'result': result
                     };
-                    context.log(JSON.stringify(message));
+                    context.log(JSON.stringify(topic_message));
+                    context.done(null, topic_message);
                 }
             });
         }
     });
-    context.done(null, message);
 };
