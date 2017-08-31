@@ -51,7 +51,7 @@ module.exports = function (context, message) {
                 directory.members.insert(params, function (err, result) {
                     if (err) {
                         if (err.code == 409) {
-                            result = "Member already exists.";
+                            result = 'Member ' + member_to_create.email + ' already exists.';
                             context.log(result);
                             createMemberCallback(null, result);
                             return;
