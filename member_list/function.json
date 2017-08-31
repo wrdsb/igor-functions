@@ -1,0 +1,28 @@
+{
+  "bindings": [
+    {
+      "type": "serviceBusTrigger",
+      "name": "message",
+      "queueName": "members_to_list",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
+      "direction": "in"
+    },
+    {
+      "type" : "serviceBus",
+      "name" : "$return",
+      "topicName" : "members_activity",
+      "subscriptionName" : "member_create",
+      "connection" : "AzureWebJobsServiceBus",
+      "accessRights" : "manage",
+      "direction" : "out"
+    },
+    {
+      "type": "blob",
+      "name": "resultBlob",
+      "path": "member-list/{group}.json",
+      "connection": "wrdsbigor_STORAGE",
+      "direction": "out"
+    }
+  ]
+}
