@@ -9,13 +9,20 @@
       "direction": "in"
     },
     {
-      "type" : "serviceBus",
-      "name" : "$return",
-      "topicName" : "calendar_acls_activity",
-      "subscriptionName" : "calendar_acl_read",
-      "connection" : "AzureWebJobsServiceBus",
-      "accessRights" : "manage",
-      "direction" : "out"
+      "type": "serviceBus",
+      "name": "$return",
+      "topicName": "calendar_acls_activity",
+      "subscriptionName": "calendar_acl_read",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
+      "direction": "out"
+    },
+    {
+      "type": "blob",
+      "name": "resultBlob",
+      "path": "calendar-acls/{calendarId}.json",
+      "connection": "wrdsbigor_STORAGE",
+      "direction": "out"
     }
   ]
 }

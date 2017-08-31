@@ -45,9 +45,11 @@ module.exports = function (context, message) {
                 } else {
                     var topic_message = {
                         'function': 'calendar_acl_list',
+                        'calendarId': message.calendarId,
                         'result': result
                     };
-                    context.log(JSON.stringify(topic_message));
+                    context.log(topic_message);
+                    context.bindings.resultBlob = JSON.stringify(topic_message);
                     context.done(null, topic_message);
                 }
             });
