@@ -3,48 +3,67 @@ module.exports = function (context, message) {
 
     var google = require('googleapis');
     var googleAuth = require('google-auth-library');
-    //var base64 = require('base64url')
-    var Base64 = require('base64.js').Base64;
+    var base64url = require('base64url')
 
     var calendar = google.gmail('v1');
 
+    var request = require('google-oauth-jwt');
+
     var client_email = process.env.client_email;
     var private_key = process.env.private_key;
-    var user_address = 'igor@wrdsb.ca';
+    var user_address = 'igorbot@igor-168712.iam.gserviceaccount.com';
 
     private_key = private_key.split('\\n').join("\n");
 
     var user_id = message.user_id;
-    var resource = message.resource;
-    //var base64_encoded_email = base64(resource);
-    //https://github.com/dankogai/js-base64
+
     //var media = message.media;
     //var media_mime_type = message.media_mime_type;
     //var media_body = message.media_body;
 
-    //https://github.com/google/google-api-nodejs-client/blob/master/apis/gmail/v1.ts
-    //Params are different to what's listed in
-    //https://developers.google.com/gmail/api/v1/reference/users/messages/send
+    var scopes = ['https://mail.google.com/',
+        'https://www.googleapis.com/auth/gmail.modify',
+        'https://www.googleapis.com/auth/gmail.compose',
+        'https://www.googleapis.com/auth/gmail.send'
+    ];
 
-    context.log('Sending email from' + user_id + ' to ' );
+    function getToken(){
+        googleAuth.authenticate({
+            // use the email address of the service account, as seen in the API console
+            email: user_address,
+            // use the PEM file we generated from the downloaded key
+            keyFile: process.env.gmail_pem,
+            // specify the scopes you wish to access
+            scopes: scopes
+        }, function (err, token) {
+            console.log(token);
+            return token;
+        });
+    }
 
-    // stores our calendar in the end
+    var oauth2token = getToken();
+    context.log(oauth2token);
+
+    // stores our response
     var user_message_sent = {};
 
+    /*
     // prep our credentials for G Suite APIs
     var jwtClient = new google.auth.JWT(
         client_email,
         null,
         private_key,
-        ['https://www.googleapis.com/auth/gmail.send'],
+        scopes,
         user_address
-    );
+    );*/
 
     var to = message.to;
     var from = message.from;
     var subject = message.subject;
     var message = message.body;
     var base64_encoded_email = createEmail(to, from, subject, message);
+
+    context.log('Sending email from ' + from + ' to ' + to);
 
     function createEmail(to, from, subject, message) {
         let email = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
@@ -56,13 +75,15 @@ module.exports = function (context, message) {
             message
         ].join('');
 
-        return Base64.encodeURI(email);
+        return base64url(email);
     }
 
-    Context.log(base64_encoded_email);
+    //context.log(base64_encoded_email);
+    //context.log('Client email: ' + client_email);
+    //context.log('User Adrs: ' + user_address);
 
     var params = {
-        auth: jwtClient,
+        auth: oauth2token,
         alt: "json",
         userId: user_id,
         resource: {'raw' : base64_encoded_email}
@@ -71,6 +92,8 @@ module.exports = function (context, message) {
         //media.body: media_body
     };
 
+
+    /*
     jwtClient.authorize(function (err, tokens) {
         if (err) {
             context.log(err);
@@ -93,11 +116,10 @@ module.exports = function (context, message) {
                 if (err) {
                     context.done(err);
                 } else {
-                //https://www.npmjs.com/package/rfc822-json 
                     user_message_sent = results[0];
                     context.log('Message succesfully sent: ' + user_message_sent);
                     context.done();
                 }
             });
-    });
+    });*/
 };
