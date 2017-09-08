@@ -5,18 +5,34 @@ module.exports = function (context, message) {
     //var googleAuth = require('google-auth-library');
     var base64url = require('base64url')
 
+var googleAuth = require('google-oauth-jwt');
+
     var gmail = google.gmail('v1');
 
-    var googleAuth = require('google-oauth-jwt');
     var request = require('request');
 
     var client_email = process.env.client_email;
     var private_key = process.env.private_key;
-    var user_address = 'get igor true @ value';
+    var user_address = '';
 
     private_key = private_key.split('\\n').join("\n");
 
-    var user_id = message.user_id;
+    var user_id = 'me';
+
+    var OAuth2 = google.auth.OAuth2;
+    var oauth2Client = new OAuth2(
+    '',
+    '',
+    ''
+    );
+
+oauth2Client.setCredentials({
+  access_token: ''//,
+  //refresh_token: ''
+  // Optional, provide an expiry_date (milliseconds since the Unix Epoch)
+  // expiry_date: (new Date()).getTime() + (1000 * 60 * 60 * 24 * 7)
+});
+
 
     //var media = message.media;
     //var media_mime_type = message.media_mime_type;
@@ -61,18 +77,18 @@ module.exports = function (context, message) {
     var message = message.body;
     var base64_encoded_email = createEmail(to, from, subject, message);
 
-
     function createEmail(to, from, subject, message) {
-        let email = ["Content-Type:  text/plain; charset=\"UTF-8\"\n",
-            "Content-length: 5000\n",
-            "Content-Transfer-Encoding: message/rfc2822\n",
+        let email = [//"Content-Type:  text/plain; charset=\"UTF-8\"\n",
+            //"Content-length: 5000\n",
+            //"Content-Transfer-Encoding: message/rfc2822\n",
             "to: ", to, "\n",
             "from: ", from, "\n",
             "subject: ", subject, "\n\n",
             message
         ].join('');
 
-        return new Buffer(email).toString('base64').replace(/\+/g, '-').replace(/\//g, '_');
+        //return new Buffer(email).toString('base64').replace('-', '+').replace('_', '/');
+        return base64url(new Buffer(email).toString('utf8'));
     }
     
     function sendMail(oauth2token, raw) {
@@ -81,7 +97,8 @@ module.exports = function (context, message) {
 
         var params = {
             userId: user_id,
-            resource: { 'raw': raw }
+            resource: { 'raw': raw },
+            auth: oauth2Client
         };
 
         var headers = {
@@ -96,17 +113,14 @@ module.exports = function (context, message) {
             method: "POST",
             params: params
         };
+        gmail.users.messages.send(params, function (err, result) {
+                    if (err) {
+                        context.log(result);
+                        context.log(err);
+                        return;
+                    }
+                    context.log(result);
+        });
 
-        request(options, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                context.log(body);
-            }
-            if (error) {
-                context.log(error);
-            }
-            else {
-                context.log(response);
-            }
-        })
     }
 };
