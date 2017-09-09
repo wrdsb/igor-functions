@@ -1,0 +1,26 @@
+{
+  "bindings": [
+    {
+      "schedule": "0 0 * * * *",
+      "name": "functionTimer",
+      "type": "timerTrigger",
+      "direction": "in"
+    },
+    {
+      "type": "serviceBus",
+      "name": "$return",
+      "topicName": "roles_activity",
+      "subscriptionName": "role_list",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
+      "direction": "out"
+    },
+    {
+      "type": "blob",
+      "name": "resultBlob",
+      "path": "roles/roles.json",
+      "connection": "wrdsbigor_STORAGE",
+      "direction": "out"
+    }
+  ]
+}

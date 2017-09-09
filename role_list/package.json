@@ -1,0 +1,15 @@
+{
+  "name": "role_list",
+  "version": "0.0.1",
+  "description": "Lists Roles for the customer account hourly.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "google-auth-library": "^0.10.0",
+    "googleapis": "^19.0.0"
+  }
+}
