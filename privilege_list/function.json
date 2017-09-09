@@ -1,0 +1,26 @@
+{
+  "bindings": [
+    {
+      "schedule": "0 0 10 * * *",
+      "name": "functionTimer",
+      "type": "timerTrigger",
+      "direction": "in"
+    },
+    {
+      "type": "serviceBus",
+      "name": "$return",
+      "topicName": "privileges_activity",
+      "subscriptionName": "privilege_list",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
+      "direction": "out"
+    },
+    {
+      "type": "blob",
+      "name": "resultBlob",
+      "path": "privileges/privileges.json",
+      "connection": "wrdsbigor_STORAGE",
+      "direction": "out"
+    }
+  ]
+}
