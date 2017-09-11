@@ -16,6 +16,13 @@
       "connection" : "AzureWebJobsServiceBus",
       "accessRights" : "manage",
       "direction" : "out"
+    },
+    {
+      "type": "blob",
+      "name": "resultBlob",
+      "path": "group-read/{groupKey}.json",
+      "connection": "wrdsbigor_STORAGE",
+      "direction": "out"
     }
   ]
 }
