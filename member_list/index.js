@@ -30,7 +30,7 @@ module.exports = function (context, message) {
         maxResults: 200
     };
 
-    var members = [];
+    var members = {};
 
     jwtClient.authorize(function(err, tokens) {
         if (err) {
@@ -38,9 +38,8 @@ module.exports = function (context, message) {
             return;
         }
         getMembers(params, function() {
-           context.log('Final results: Got ' + members.length + ' members.');
+           context.log('Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members.');
            context.bindings.resultBlob = JSON.stringify(members);
-           context.log(members);
            context.done();
         });
     });
@@ -53,7 +52,7 @@ module.exports = function (context, message) {
             }
             context.log('Got ' + result.members.length + ' members.');
             result.members.forEach(function(member) {
-                members.push(member);
+                members[member.email] = member;
             });
             if (result.nextPageToken) {
                 params.pageToken = result.nextPageToken;
