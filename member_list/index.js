@@ -38,9 +38,10 @@ module.exports = function (context, message) {
             return;
         }
         getMembers(params, function() {
-           context.log('Final results:');
-           context.bindings.resultBlob = members;
+           context.log('Final results: Got ' + members.length + ' members.');
+           context.bindings.resultBlob = JSON.stringify(members);
            context.log(members);
+           context.done();
         });
     });
 
