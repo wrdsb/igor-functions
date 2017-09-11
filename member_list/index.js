@@ -1,11 +1,8 @@
 module.exports = function (context, message) {
-    var series = require('async/series');
-
     var google = require('googleapis');
     var googleAuth = require('google-auth-library');
 
     var directory = google.admin('directory_v1');
-    var groupssettings = google.groupssettings('v1');
 
     var client_email = process.env.client_email;
     var private_key = process.env.private_key;
@@ -30,40 +27,36 @@ module.exports = function (context, message) {
         auth: jwtClient,
         alt: "json",
         groupKey: group_to_list,
-        maxResults: 20000
+        maxResults: 200
     };
+
+    var results = [];
 
     jwtClient.authorize(function(err, tokens) {
         if (err) {
             context.log(err);
             return;
         }
-        series([
-            function listMember(listMemberCallback) {
-                directory.members.insert(params, function (err, result) {
-                    if (err) {
-                        context.log(result);
-                        listMemberCallback(new Error(err));
-                        return;
-                    }
-                    context.log(result);
-                    listMemberCallback(null, result);
-                });
-            }
-        ],
-        function (err, results) {
-            if (err) {
-                context.done(err);
-            } else {
-                var topic_message = {
-                    'function': 'member_list',
-                    'groupKey': group_to_list,
-                    'result': results[0]
-                };
-                context.log(JSON.stringify(topic_message));
-                context.bindings.resultBlob = JSON.stringify(topic_message);
-                context.done(null, topic_message);
-            }
+        getMembers(params, function() {
+           context.log('Final results:');
+           context.log(results); 
         });
     });
+
+    function getMembers(params, callback) {
+        directory.members.list(params, function (err, result) {
+            if (err) {
+                context.log(result);
+                context.done(err);
+            }
+            context.log(result);
+            results.push(result);
+            if (result.nextPageToken) {
+                params.pageToken = result.nextPageToken;
+                getMembers(params, callback);
+            } else {
+                callback();
+            }
+        });
+    }
 };
