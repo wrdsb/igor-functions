@@ -38,7 +38,7 @@ module.exports = function (context, message) {
             return;
         }
         getGroups(params, function() {
-           context.log('Final results: Got ' + Object.getOwnPropertyNames(groups).length + ' groups.');
+           context.log('Final results: Got ' + Object.getOwnPropertyNames(groups).length + ' groups and ' + Object.getOwnPropertyNames(groups).length + ' admin-created groups.');
            context.bindings.allGroups = JSON.stringify(groups);
            context.bindings.adminCreatedGroups = JSON.stringify(admin_created_groups);
            context.done();
