@@ -20,7 +20,7 @@
     {
       "type": "blob",
       "name": "resultBlob",
-      "path": "group-read/{groupKey}.json",
+      "path": "group-read/{group}.json",
       "connection": "wrdsbigor_STORAGE",
       "direction": "out"
     }
