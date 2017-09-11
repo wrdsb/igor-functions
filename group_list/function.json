@@ -19,8 +19,15 @@
     },
     {
       "type": "blob",
-      "name": "resultBlob",
+      "name": "allGroups",
       "path": "group-list/all-groups.json",
+      "connection": "wrdsbigor_STORAGE",
+      "direction": "out"
+    },
+    {
+      "type": "blob",
+      "name": "adminCreatedGroups",
+      "path": "group-list/admin-created-groups.json",
       "connection": "wrdsbigor_STORAGE",
       "direction": "out"
     }

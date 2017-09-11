@@ -30,6 +30,7 @@ module.exports = function (context, message) {
 
     // stores our Groups in the end
     var groups = {};
+    var admin_created_groups = {};
 
     jwtClient.authorize(function(err, tokens) {
         if (err) {
@@ -38,7 +39,8 @@ module.exports = function (context, message) {
         }
         getGroups(params, function() {
            context.log('Final results: Got ' + Object.getOwnPropertyNames(groups).length + ' groups.');
-           //context.bindings.resultBlob = JSON.stringify(groups);
+           context.bindings.allGroups = JSON.stringify(groups);
+           context.bindings.adminCreatedGroups = JSON.stringify(admin_created_groups);
            context.done();
         });
     });
@@ -50,10 +52,13 @@ module.exports = function (context, message) {
                 context.done(err);
             }
             context.log(result);
-            //context.log('Got ' + result.members.length + ' groups.');
-            //result.members.forEach(function(member) {
-                //members[member.email] = member;
-            //});
+            context.log('Got ' + result.groups.length + ' groups.');
+            result.groups.forEach(function(group) {
+                groups[group.email] = group;
+                if (group.adminCreated) {
+                    admin_created_groups[group.email] = group;
+                }
+            });
             if (result.nextPageToken) {
                 params.pageToken = result.nextPageToken;
                 getGroups(params, callback);
