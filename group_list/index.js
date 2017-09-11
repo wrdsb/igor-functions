@@ -51,7 +51,6 @@ module.exports = function (context, message) {
                 context.log(result);
                 context.done(err);
             }
-            context.log(result);
             context.log('Got ' + result.groups.length + ' groups.');
             result.groups.forEach(function(group) {
                 groups[group.email] = group;
