@@ -38,7 +38,7 @@ module.exports = function (context, message) {
             return;
         }
         getMembers(params, function() {
-           context.log('Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members.');
+           context.log('Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members for ' + group_to_list);
            context.bindings.resultBlob = JSON.stringify(members);
            context.done();
         });
@@ -50,7 +50,7 @@ module.exports = function (context, message) {
                 context.log(result);
                 context.done(err);
             }
-            context.log('Got ' + result.members.length + ' members.');
+            context.log('Got ' + result.members.length + ' more members for ' + group_to_list);
             result.members.forEach(function(member) {
                 members[member.email] = member;
             });
