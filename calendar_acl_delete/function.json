@@ -11,8 +11,7 @@
     {
       "type" : "serviceBus",
       "name" : "$return",
-      "topicName" : "log_to_slack",
-      "subscriptionName" : "calendar_acl_delete",
+      "queueName" : "log_to_slack",
       "connection" : "AzureWebJobsServiceBus",
       "accessRights" : "manage",
       "direction" : "out"
