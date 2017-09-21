@@ -14,7 +14,6 @@ module.exports = function (context, message) {
 
     var calendar_acl_to_delete = message.rule_id;
     var calendar_id = message.calendar_id;
-    var calendar_acl_deleted = {};
 
     var jwtClient = new google.auth.JWT(
         client_email,
@@ -43,7 +42,6 @@ module.exports = function (context, message) {
                         deleteCalendarAclCallback(new Error(err));
                         return;
                     }
-                    context.log(result);
                     deleteCalendarAclCallback(null, result);
                 });
             }
@@ -52,9 +50,8 @@ module.exports = function (context, message) {
             if (err) {
                 context.done(err);
             } else {
-                calendar_acl_deleted = results[0];
-                context.log(calendar_acl_deleted);
-                context.done();
+                context.log('Deleted ' + calendar_acl_to_delete + ' ACL on ' + calendar_id);
+                context.done(null, 'Deleted ' + calendar_acl_to_delete + ' ACL on ' + calendar_id);
             }
         });
     });

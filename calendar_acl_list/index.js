@@ -24,15 +24,12 @@ module.exports = function (context, message) {
 
     var params = {
         auth: jwtClient,
-
-        // specify we want JSON back from the API.
-        // Group Settings API defaults to XML (or Atom), despite the docs
         alt: "json",
-
-        // the Calendar Acl to create
         calendarId: message.calendarId,
         maxResults: message.maxResults
     };
+
+    var members = {};
 
     jwtClient.authorize(function(err, tokens) {
         if (err) {
@@ -43,14 +40,12 @@ module.exports = function (context, message) {
                     context.log(result);
                     context.done(err);
                 } else {
-                    var topic_message = {
-                        'function': 'calendar_acl_list',
-                        'calendarId': message.calendarId,
-                        'result': result
-                    };
-                    context.log(JSON.stringify(topic_message));
-                    context.bindings.resultBlob = JSON.stringify(topic_message);
-                    context.done(null, topic_message);
+                    result.items.forEach(function(member) {
+                        members[member.scope.value] = member;
+                    });
+                    context.log('Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members for ' + message.calendarId);
+                    context.bindings.resultBlob = JSON.stringify(members);
+                    context.done();
                 }
             });
         }

@@ -31,12 +31,7 @@ module.exports = function (context, message) {
 
     var params = {
         auth: jwtClient,
-
-        // specify we want JSON back from the API.
-        // Group Settings API defaults to XML (or Atom), despite the docs
         alt: "json",
-
-        // the Calendar Acl to create
         resource: calendar_acl_to_create,
         calendarId: calendar_id
     };
@@ -50,11 +45,11 @@ module.exports = function (context, message) {
             function createCalendarAcl(createCalendarAclCallback) {
                 calendar.acl.insert(params, function (err, result) {
                     if (err) {
-                        context.log(result);
+                        context.log('Unable to create ' + calendar_acl_to_create.role + ' ACL for ' + calendar_acl_to_create.scope.value + ' on ' + calendar_id);
                         createCalendarAclCallback(new Error(err));
                         return;
                     }
-                    context.log(result);
+                    // context.log(result); - TODO - log this instead
                     createCalendarAclCallback(null, result);
                 });
             }
@@ -64,8 +59,8 @@ module.exports = function (context, message) {
                 context.done(err);
             } else {
                 calendar_acl_created = results[0];
-                context.log(calendar_acl_created);
-                context.done();
+                context.log('Created ' + calendar_acl_to_create.role + ' ACL for ' + calendar_acl_to_create.scope.value + ' on ' + calendar_id);
+                context.done(null, 'Created ' + calendar_acl_to_create.role + ' ACL for ' + calendar_acl_to_create.scope.value + ' on ' + calendar_id);
             }
         });
     });
