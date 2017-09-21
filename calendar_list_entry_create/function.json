@@ -11,8 +11,7 @@
     {
       "type" : "serviceBus",
       "name" : "$return",
-      "topicName" : "calendar_list_entries_activity",
-      "subscriptionName" : "calendar_list_entry_create",
+      "queueName" : "log_to_slack",
       "connection" : "AzureWebJobsServiceBus",
       "accessRights" : "manage",
       "direction" : "out"

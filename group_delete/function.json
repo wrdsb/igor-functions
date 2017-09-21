@@ -11,8 +11,7 @@
     {
       "type" : "serviceBus",
       "name" : "$return",
-      "topicName" : "groups_activity",
-      "subscriptionName" : "group_delete",
+      "queueName" : "log_to_slack",
       "connection" : "AzureWebJobsServiceBus",
       "accessRights" : "manage",
       "direction" : "out"

@@ -9,15 +9,6 @@
       "direction": "in"
     },
     {
-      "type" : "serviceBus",
-      "name" : "$return",
-      "topicName" : "groups_activity",
-      "subscriptionName" : "group_list",
-      "connection" : "AzureWebJobsServiceBus",
-      "accessRights" : "manage",
-      "direction" : "out"
-    },
-    {
       "type": "blob",
       "name": "allGroups",
       "path": "group-list/all-groups.json",
@@ -30,6 +21,14 @@
       "path": "group-list/admin-created-groups.json",
       "connection": "wrdsbigor_STORAGE",
       "direction": "out"
+    },
+    {
+      "type" : "serviceBus",
+      "name" : "$return",
+      "queueName" : "log_to_slack",
+      "connection" : "AzureWebJobsServiceBus",
+      "accessRights" : "manage",
+      "direction" : "out"
     }
   ]
 }
