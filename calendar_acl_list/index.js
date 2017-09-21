@@ -45,7 +45,7 @@ module.exports = function (context, message) {
                     });
                     context.log('Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members for ' + message.calendarId);
                     context.bindings.resultBlob = JSON.stringify(members);
-                    context.done();
+                    context.done(null, 'Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members for ' + message.calendarId);
                 }
             });
         }

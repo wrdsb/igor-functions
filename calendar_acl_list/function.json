@@ -14,6 +14,15 @@
       "path": "calendar-acls/{calendarId}.json",
       "connection": "wrdsbigor_STORAGE",
       "direction": "out"
+    },
+    {
+      "type" : "serviceBus",
+      "name" : "$return",
+      "topicName" : "log_to_slack",
+      "subscriptionName" : "calendar_acl_update",
+      "connection" : "AzureWebJobsServiceBus",
+      "accessRights" : "manage",
+      "direction" : "out"
     }
   ]
 }
