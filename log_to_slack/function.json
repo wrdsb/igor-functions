@@ -3,10 +3,9 @@
     {
       "type": "serviceBusTrigger",
       "name": "message",
-      "topicName": "ipps_employee_groups_changes",
-      "subscriptionName": "igor-functions",
-      "connection": "RootListenCodexAccessKey",
-      "accessRights": "listen",
+      "queueName": "log_to_slack",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
       "direction": "in"
     }
   ]

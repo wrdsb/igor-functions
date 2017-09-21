@@ -1,3 +1,3 @@
-# Codex IPPS Employee Groups Changes
+# Log to Slack
 
-Monitors Codex's ipps_employee_groups_changes Service Bus topic and ingests events.
+Sends output of other functions to Slack channel, where we can monitor IGOR's activity, and collect a history, in a manager-friendly way.

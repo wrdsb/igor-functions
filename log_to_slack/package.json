@@ -1,7 +1,7 @@
 {
-  "name": "codex_ipps_employee_groups_changes",
+  "name": "log_to_slack",
   "version": "0.0.1",
-  "description": "Monitors Codex's ipps_employee_groups_changes Service Bus topic and ingests events.",
+  "description": "Sends output of other functions to Slack channel, where we can monitor IGOR's activity, and collect a history, in a manager-friendly way.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
