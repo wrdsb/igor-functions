@@ -9,9 +9,10 @@
       "direction": "in"
     },
     {
-      "name": "res"
+      "name": "res",
       "type": "http",
       "direction": "out"
     }
-  ]
+  ],
+  "disabled": false
 }
