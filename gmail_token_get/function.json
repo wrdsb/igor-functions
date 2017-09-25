@@ -1,0 +1,13 @@
+{
+  "bindings": [
+    {
+      "name": "myQueueItem",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "queueName": "myqueue",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage"
+    }
+  ],
+  "disabled": false
+}

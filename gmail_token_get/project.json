@@ -1,0 +1,14 @@
+{
+  "frameworks": {
+    "net46": {
+      "dependencies": {
+        "Google.Apis.Oauth2.v2": "1.29.1.949",
+        "Microsoft.NET.Sdk.Functions": "1.0.4",
+        "Google.Apis.Gmail.v1": "1.29.1.986",
+        "Microsoft.Owin.Security.Google": "3.1.0",
+        "Google.Apis": "1.29.1",
+        "Microsoft.Azure.WebJobs.ServiceBus": "2.1.0-beta1"
+      }
+    }
+  }
+}
