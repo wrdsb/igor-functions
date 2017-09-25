@@ -1,3 +1,8 @@
+message: {
+    "email": 
+    "groupKey": 
+}
+
 https://developers.google.com/admin-sdk/directory/v1/reference/
 
 https://developers.google.com/admin-sdk/directory/v1/reference/members/delete

@@ -5,7 +5,6 @@ module.exports = function (context, message) {
     var googleAuth = require('google-auth-library');
 
     var directory = google.admin('directory_v1');
-    var groupssettings = google.groupssettings('v1');
 
     var client_email = process.env.client_email;
     var private_key = process.env.private_key;
@@ -14,7 +13,7 @@ module.exports = function (context, message) {
     private_key = private_key.split('\\n').join("\n");
 
     var member_to_delete = message;
-    context.log('Delete membership for ' + member_to_create.email + ' in group ' + member_to_create.groupKey);
+    context.log('Delete membership for ' + member_to_delete.email + ' in group ' + member_to_delete.groupKey);
 
     var jwtClient = new google.auth.JWT(
         client_email,
@@ -55,7 +54,7 @@ module.exports = function (context, message) {
                 } else {
                     //Success: Empty Response Body
                     context.log('Membership deleted.');
-                    context.done();
+                    context.done(null, 'Delete membership for ' + member_to_delete.email + ' in group ' + member_to_delete.groupKey);
                 }
             });
     });
