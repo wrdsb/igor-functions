@@ -8,7 +8,7 @@ module.exports = function (context, message) {
 
     var client_email = process.env.client_email;
     var private_key = process.env.private_key;
-    var user_address = 'igor@wrdsb.ca';
+    var user_address = 'igorbot@igor-168712.iam.gserviceaccount.com';
 
     private_key = private_key.split('\\n').join("\n");
 
@@ -53,8 +53,8 @@ module.exports = function (context, message) {
                     context.done(err);
                 } else {
                     //Success: Empty Response Body
-                    context.log('Membership deleted.');
-                    context.done(null, 'Delete membership for ' + member_to_delete.email + ' in group ' + member_to_delete.groupKey);
+                    context.log('Deleted membership for ' + member_to_delete.email + ' in group ' + member_to_delete.groupKey);
+                    context.done(null, 'Deleted membership for ' + member_to_delete.email + ' in group ' + member_to_delete.groupKey);
                 }
             });
     });

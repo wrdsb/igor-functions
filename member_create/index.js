@@ -70,7 +70,7 @@ module.exports = function (context, message) {
             } else {
                 member_created = results[0];
                 context.log(member_created);
-                context.done();
+                context.done(null, 'Created membership for ' + member_to_create.email + ' in group ' + member_to_create.groupKey);
             }
         });
     });
