@@ -31,12 +31,7 @@ module.exports = function (context, message) {
 
     var params = {
         auth: jwtClient,
-
-        // specify we want JSON back from the API.
-        // Group Settings API defaults to XML (or Atom), despite the docs
         alt: "json",
-
-        // the member to create
         resource: member_to_create,
         groupKey: member_to_create.groupKey
     };
