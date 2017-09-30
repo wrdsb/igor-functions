@@ -1,7 +1,7 @@
 {
-  "name": "log_to_slack",
+  "name": "bot_response",
   "version": "0.0.1",
-  "description": "Sends output of other functions to Slack channel, where we can monitor IGOR's activity, and collect a history, in a manager-friendly way.",
+  "description": "Sends output to our chatbot.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
