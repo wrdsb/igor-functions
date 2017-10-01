@@ -1,0 +1,14 @@
+{
+  "name": "bot_request",
+  "version": "0.0.1",
+  "description": "Accepts incoming requests from our chatbot.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.82.0"
+  }
+}

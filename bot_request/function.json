@@ -1,0 +1,11 @@
+{
+  "bindings": [
+    {
+      "name": "message",
+      "type": "queueTrigger",
+      "direction": "in",
+      "queueName": "bot-queue",
+      "connection": ""
+    }
+  ]
+}
