@@ -1,5 +1,5 @@
 {
-  "name": "bot_response",
+  "name": "bot_send",
   "version": "0.0.1",
   "description": "Sends output to our chatbot.",
   "main": "index.js",

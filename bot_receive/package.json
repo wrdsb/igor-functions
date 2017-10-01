@@ -1,5 +1,5 @@
 {
-  "name": "bot_request",
+  "name": "bot_receive",
   "version": "0.0.1",
   "description": "Accepts incoming requests from our chatbot.",
   "main": "index.js",

@@ -1,3 +1,3 @@
-# Bot Response
+# Bot Send
 
 Sends output to our chatbot. 
