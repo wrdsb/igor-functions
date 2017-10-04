@@ -11,8 +11,8 @@
     {
       "type": "blob",
       "name": "resultBlob",
-      "path": "group-read/{group}.json",
-      "connection": "wrdsbigor_STORAGE",
+      "path": "groups/{group}.json",
+      "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
     {
