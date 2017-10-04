@@ -15,7 +15,7 @@ module.exports = function (context, message) {
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
 
-    var group_email = JSON.parse(message.body).group;
+    var group_email = message.group;
     if (!group_email) {
         context.done('Group email missing.');
         return;
