@@ -29,8 +29,9 @@ module.exports = function (context, message) {
     };
 
     // stores our Groups in the end
-    var groups = {};
-    var admin_created_groups = {};
+    var groups_all = {};
+    var groups_created_admin = {};
+    var groups_created_user = {};
 
     jwtClient.authorize(function(err, tokens) {
         if (err) {
@@ -38,9 +39,10 @@ module.exports = function (context, message) {
             return;
         }
         getGroups(params, function() {
-           context.log('Final results: Got ' + Object.getOwnPropertyNames(groups).length + ' groups and ' + Object.getOwnPropertyNames(groups).length + ' admin-created groups.');
-           context.bindings.allGroups = JSON.stringify(groups);
-           context.bindings.adminCreatedGroups = JSON.stringify(admin_created_groups);
+           context.log('Final results: Got ' + Object.getOwnPropertyNames(groups_all).length + ' groups and ' + Object.getOwnPropertyNames(groups_created_admin).length + ' admin-created groups.');
+           context.bindings.groupsAll = JSON.stringify(groups_all);
+           context.bindings.groupsCreatedAdmin = JSON.stringify(groups_created_admin);
+           context.bindings.groupsCreatedUser = JSON.stringify(groups_created_user);
            context.done();
         });
     });
@@ -53,9 +55,11 @@ module.exports = function (context, message) {
             }
             context.log('Got ' + result.groups.length + ' groups.');
             result.groups.forEach(function(group) {
-                groups[group.email] = group;
+                groups_all[group.email] = group;
                 if (group.adminCreated) {
-                    admin_created_groups[group.email] = group;
+                    groups_created_admin[group.email] = group;
+                } else {
+                    groups_created_user[group.email] = group;
                 }
             });
             if (result.nextPageToken) {

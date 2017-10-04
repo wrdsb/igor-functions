@@ -10,16 +10,23 @@
     },
     {
       "type": "blob",
-      "name": "allGroups",
-      "path": "group-list/all-groups.json",
-      "connection": "wrdsbigor_STORAGE",
+      "name": "groupsAll",
+      "path": "groups/groups.all.json",
+      "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
     {
       "type": "blob",
-      "name": "adminCreatedGroups",
-      "path": "group-list/admin-created-groups.json",
-      "connection": "wrdsbigor_STORAGE",
+      "name": "groupsCreatedAdmin",
+      "path": "groups/groups.created.admin.json",
+      "connection": "wrdsbcodex_STORAGE",
+      "direction": "out"
+    },
+    {
+      "type": "blob",
+      "name": "groupsCreatedUser",
+      "path": "groups/groups.created.user.json",
+      "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
     {
