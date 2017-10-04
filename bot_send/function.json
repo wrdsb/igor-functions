@@ -1,5 +1,6 @@
 {
   "bindings": [
+    {
       "type": "serviceBusTrigger",
       "name": "message",
       "queueName": "bot_send",
