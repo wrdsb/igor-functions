@@ -11,7 +11,7 @@
     {
       "type" : "serviceBus",
       "name" : "$return",
-      "queueName" : "log_to_slack",
+      "queueName" : "bot_send",
       "connection" : "AzureWebJobsServiceBus",
       "accessRights" : "manage",
       "direction" : "out"

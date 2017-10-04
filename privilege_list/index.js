@@ -4,11 +4,11 @@ module.exports = function (context, functionTimer) {
 
     var directory = google.admin('directory_v1');
 
-    var customer = process.env["CUSTOMER_ID"];
+    var customer = process.env['CUSTOMER_ID'];
 
     var client_email = process.env.client_email;
     var private_key = process.env.private_key;
-    var user_address = 'igor@wrdsb.ca';
+    var user_address = process.env['client_email'];
 
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
