@@ -15,6 +15,10 @@ module.exports = function (context, message) {
     private_key = private_key.split('\\n').join("\n");
 
     var group_email = message.group;
+    if (!group_email) {
+        context.done('Group email missing.');
+        return;
+    }
     context.log('Read group: ' + group_email);
     
     // stores our Group in the end
