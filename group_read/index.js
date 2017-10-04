@@ -1,4 +1,5 @@
 module.exports = function (context, message) {
+    context.log(message);
     var series = require('async/series');
 
     var google = require('googleapis');
