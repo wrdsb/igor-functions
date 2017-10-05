@@ -1,11 +1,20 @@
 {
   "bindings": [
     {
+      "type": "serviceBusTrigger",
       "name": "message",
-      "type": "queueTrigger",
-      "direction": "in",
-      "queueName": "bot-queue",
-      "connection": ""
+      "queueName": "bot_receive",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
+      "direction": "in"
+    },
+    {
+      "type": "serviceBus",
+      "name": "$return",
+      "queueName": "bot_send",
+      "connection": "AzureWebJobsServiceBus",
+      "accessRights": "manage",
+      "direction": "out"
     }
   ]
 }
