@@ -11,8 +11,8 @@
     {
       "type": "blob",
       "name": "resultBlob",
-      "path": "member-list/{groupKey}.json",
-      "connection": "wrdsbigor_STORAGE",
+      "path": "groups-memberships-actual/{groupKey}.json",
+      "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
     {
