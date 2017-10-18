@@ -1,9 +1,9 @@
 module.exports = function (context, data) {
     // parse request params
-    console.log('Requested return_type: ' + data.return_type);
+    context.log('Requested return_type: ' + data.return_type);
     var return_type = data.return_type;
     if (!return_type) { return_type = 'stats' }
-    console.log('Using return_type: ' + return_type);
+    context.log('Using return_type: ' + return_type);
 
     // stores our Groups in the end; one set for objects, another for arrays
     var groups_all_object = {};
