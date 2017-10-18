@@ -1,4 +1,20 @@
 module.exports = function (context, data) {
+    // parse request params
+    var return_type = data.return_type;
+    if (!return_type) { return_type = 'stats' }
+
+    // stores our Groups in the end; one set for objects, another for arrays
+    var groups_all_object = {};
+    var groups_created_admin_object = {};
+    var groups_created_user_object = {};
+
+    var groups_all_array = [];
+    var groups_created_admin_array = [];
+    var groups_created_user_array = [];
+
+    // the data we'll return as 'res' body
+    var res_body;
+
     var google = require('googleapis');
     var directory = google.admin('directory_v1');
 
@@ -25,32 +41,61 @@ module.exports = function (context, data) {
         maxResults: 200
     };
 
-    // stores our Groups in the end
-    var groups = {};
-    var groups_all = {};
-    var groups_created_admin = {};
-    var groups_created_user = {};
-
     jwtClient.authorize(function(err, tokens) {
         if (err) {
             context.log(err);
             return;
         }
         getGroups(params, function() {
-            context.log('Final results: Got ' + Object.getOwnPropertyNames(groups_all).length + ' groups and ' + Object.getOwnPropertyNames(groups_created_admin).length + ' admin-created groups.');
-            context.bindings.groupsAll = JSON.stringify(groups_all);
-            context.bindings.groupsCreatedAdmin = JSON.stringify(groups_created_admin);
-            context.bindings.groupsCreatedUser = JSON.stringify(groups_created_user);
-            groups = {
-                all: groups_all,
-                created_admin: groups_created_admin,
-                created_user: groups_created_user
+            context.log('Final results: Got ' + groups_all_array.length + ' groups and ' + groups_created_admin_array.length + ' admin-created groups.');
+
+            var res_stats = {
+                total_groups: groups_all_array.length,
+                total_admin_created_groups: groups_created_admin_array.length,
+                total_user_created_groups: groups_created_user_array.length
             };
-            groups = JSON.stringify(groups);
+
+            context.bindings.groupsAllObject = JSON.stringify(groups_all_object);
+            context.bindings.groupsCreatedAdminObject = JSON.stringify(groups_created_admin_object);
+            context.bindings.groupsCreatedUserObject = JSON.stringify(groups_created_user_object);
+
+            context.bindings.groupsAllArray = JSON.stringify(groups_all_array);
+            context.bindings.groupsCreatedAdminArray = JSON.stringify(groups_created_admin_array);
+            context.bindings.groupsCreatedUserArray = JSON.stringify(groups_created_user_array);
+
+            context.bindings.groupsStats = JSON.stringify(res_stats);
+
+            switch (return_type) {
+                case 'all_groups_array':
+                    res_body = JSON.stringify(groups_all_array);
+                    break;
+                case 'admin_created_groups_array':
+                    res_body = JSON.stringify(groups_created_admin_array);
+                    break;
+                case 'user_created_groups_array':
+                    res_body = JSON.stringify(groups_created_user_array);
+                    break;
+                case 'all_groups_object':
+                    res_body = JSON.stringify(groups_all_object);
+                    break;
+                case 'admin_created_groups_object':
+                    res_body = JSON.stringify(groups_created_admin_object);
+                    break;
+                case 'user_created_groups_object':
+                    res_body = JSON.stringify(groups_created_user_object);
+                    break;
+                case 'stats':
+                    res_body = JSON.stringify(res_stats);
+                    break;
+                default:
+                    res_body = JSON.stringify(res_stats);
+            }
+
             context.res = {
                 status: 200,
-                body: groups
+                body: res_body
             };
+
             context.done();
         });
     });
@@ -61,21 +106,31 @@ module.exports = function (context, data) {
                 context.log(result);
                 context.done(err);
             }
+
             context.log('Got ' + result.groups.length + ' groups.');
+
             result.groups.forEach(function(group) {
-                groups_all[group.email] = group;
+
+                groups_all_object[group.email] = group;
+                groups_all_object.push(group);
+
                 if (group.adminCreated) {
-                    groups_created_admin[group.email] = group;
+                    groups_created_admin_object[group.email] = group;
+                    groups_created_admin_array.push(group);
                 } else {
-                    groups_created_user[group.email] = group;
+                    groups_created_user_object[group.email] = group;
+                    groups_created_user_array.push(group);
                 }
+
             });
+
             if (result.nextPageToken) {
                 params.pageToken = result.nextPageToken;
                 getGroups(params, callback);
             } else {
                 callback();
             }
+
         });
     }
 };

@@ -7,23 +7,51 @@
       "direction": "in"
     },
     {
-      "name": "groupsAll",
+      "name": "groupsStats",
       "type": "blob",
-      "path": "groups/groups.all.json",
+      "path": "groups/groups.stats.json",
       "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
     {
-      "name": "groupsCreatedAdmin",
+      "name": "groupsAllObject",
       "type": "blob",
-      "path": "groups/groups.created.admin.json",
+      "path": "groups/groups.all.object.json",
       "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
     {
-      "name": "groupsCreatedUser",
+      "name": "groupsCreatedAdminObject",
       "type": "blob",
-      "path": "groups/groups.created.user.json",
+      "path": "groups/groups.created.admin.object.json",
+      "connection": "wrdsbcodex_STORAGE",
+      "direction": "out"
+    },
+    {
+      "name": "groupsCreatedUserObject",
+      "type": "blob",
+      "path": "groups/groups.created.user.object.json",
+      "connection": "wrdsbcodex_STORAGE",
+      "direction": "out"
+    },
+    {
+      "name": "groupsAllArray",
+      "type": "blob",
+      "path": "groups/groups.all.array.json",
+      "connection": "wrdsbcodex_STORAGE",
+      "direction": "out"
+    },
+    {
+      "name": "groupsCreatedAdminArray",
+      "type": "blob",
+      "path": "groups/groups.created.admin.array.json",
+      "connection": "wrdsbcodex_STORAGE",
+      "direction": "out"
+    },
+    {
+      "name": "groupsCreatedUserArray",
+      "type": "blob",
+      "path": "groups/groups.created.user.array.json",
       "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
