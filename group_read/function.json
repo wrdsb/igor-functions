@@ -9,7 +9,7 @@
     {
       "name": "resultBlob",
       "type": "blob",
-      "path": "groups/{group}.json",
+      "path": "groups-settings/{group}.json",
       "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
