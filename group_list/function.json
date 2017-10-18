@@ -1,41 +1,37 @@
 {
   "bindings": [
     {
-      "type": "serviceBusTrigger",
-      "name": "message",
-      "queueName": "groups_to_list",
-      "connection": "AzureWebJobsServiceBus",
-      "accessRights": "manage",
+      "name": "req",
+      "type": "httpTrigger",
+      "webHookType": "genericJson",
       "direction": "in"
     },
     {
-      "type": "blob",
       "name": "groupsAll",
+      "type": "blob",
       "path": "groups/groups.all.json",
       "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
     {
-      "type": "blob",
       "name": "groupsCreatedAdmin",
+      "type": "blob",
       "path": "groups/groups.created.admin.json",
       "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
     {
-      "type": "blob",
       "name": "groupsCreatedUser",
+      "type": "blob",
       "path": "groups/groups.created.user.json",
       "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
     {
-      "type" : "serviceBus",
-      "name" : "$return",
-      "queueName" : "bot_send",
-      "connection" : "AzureWebJobsServiceBus",
-      "accessRights" : "manage",
-      "direction" : "out"
+      "name": "res",
+      "type": "http",
+      "direction": "out"
     }
-  ]
+  ],
+  "disabled": false
 }

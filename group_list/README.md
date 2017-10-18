@@ -1,1 +1,2 @@
-# Manage Groups
+# Group List
+List groups.

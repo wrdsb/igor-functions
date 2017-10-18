@@ -1,9 +1,6 @@
-module.exports = function (context, message) {
+module.exports = function (context, data) {
     var google = require('googleapis');
-    var googleAuth = require('google-auth-library');
-
     var directory = google.admin('directory_v1');
-    var groupssettings = google.groupssettings('v1');
 
     var client_email = process.env.client_email;
     var private_key = process.env.private_key;
@@ -29,6 +26,7 @@ module.exports = function (context, message) {
     };
 
     // stores our Groups in the end
+    var groups = {};
     var groups_all = {};
     var groups_created_admin = {};
     var groups_created_user = {};
@@ -39,11 +37,21 @@ module.exports = function (context, message) {
             return;
         }
         getGroups(params, function() {
-           context.log('Final results: Got ' + Object.getOwnPropertyNames(groups_all).length + ' groups and ' + Object.getOwnPropertyNames(groups_created_admin).length + ' admin-created groups.');
-           context.bindings.groupsAll = JSON.stringify(groups_all);
-           context.bindings.groupsCreatedAdmin = JSON.stringify(groups_created_admin);
-           context.bindings.groupsCreatedUser = JSON.stringify(groups_created_user);
-           context.done();
+            context.log('Final results: Got ' + Object.getOwnPropertyNames(groups_all).length + ' groups and ' + Object.getOwnPropertyNames(groups_created_admin).length + ' admin-created groups.');
+            context.bindings.groupsAll = JSON.stringify(groups_all);
+            context.bindings.groupsCreatedAdmin = JSON.stringify(groups_created_admin);
+            context.bindings.groupsCreatedUser = JSON.stringify(groups_created_user);
+            groups = {
+                all: groups_all,
+                created_admin: groups_created_admin,
+                created_user: groups_created_user
+            };
+            groups = JSON.stringify(groups);
+            context.res = {
+                status: 200,
+                body: groups
+            };
+            context.done();
         });
     });
 
