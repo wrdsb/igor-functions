@@ -1,7 +1,9 @@
 module.exports = function (context, data) {
     // parse request params
+    console.log('Requested return_type: ' + data.return_type);
     var return_type = data.return_type;
     if (!return_type) { return_type = 'stats' }
+    console.log('Using return_type: ' + return_type);
 
     // stores our Groups in the end; one set for objects, another for arrays
     var groups_all_object = {};
@@ -112,7 +114,7 @@ module.exports = function (context, data) {
             result.groups.forEach(function(group) {
 
                 groups_all_object[group.email] = group;
-                groups_all_object.push(group);
+                groups_all_array.push(group);
 
                 if (group.adminCreated) {
                     groups_created_admin_object[group.email] = group;
