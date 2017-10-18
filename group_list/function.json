@@ -9,7 +9,7 @@
     {
       "name": "groupsStats",
       "type": "blob",
-      "path": "groups-lists/groups-stats.json",
+      "path": "groups-stats/groups-stats.json",
       "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
