@@ -1,9 +1,8 @@
-module.exports = function (context, message) {
-    context.log(message);
+module.exports = function (context, data) {
+    context.log(data);
     var series = require('async/series');
 
     var google = require('googleapis');
-    var googleAuth = require('google-auth-library');
 
     var directory = google.admin('directory_v1');
     var groupssettings = google.groupssettings('v1');
@@ -15,7 +14,7 @@ module.exports = function (context, message) {
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
 
-    var group_email = message.group;
+    var group_email = data.group;
     if (!group_email) {
         context.done('Group email missing.');
         return;
@@ -83,8 +82,11 @@ module.exports = function (context, message) {
                 context.done(err);
             } else {
                 group = Object.assign(results[0], results[1]);
-                context.log(group);
                 context.bindings.resultBlob = JSON.stringify(group);
+                context.res = {
+                    status: 200,
+                    body: JSON.stringify(group)
+                };
                 context.done(null, JSON.stringify(group));
             }
         });

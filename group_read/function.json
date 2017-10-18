@@ -1,27 +1,23 @@
 {
   "bindings": [
     {
-      "type": "serviceBusTrigger",
-      "name": "message",
-      "queueName": "groups_to_read",
-      "connection": "AzureWebJobsServiceBus",
-      "accessRights": "manage",
+      "name": "req",
+      "type": "httpTrigger",
+      "webHookType": "genericJson",
       "direction": "in"
     },
     {
-      "type": "blob",
       "name": "resultBlob",
+      "type": "blob",
       "path": "groups/{group}.json",
       "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
     {
-      "type" : "serviceBus",
-      "name" : "$return",
-      "queueName" : "bot_send",
-      "connection" : "AzureWebJobsServiceBus",
-      "accessRights" : "manage",
-      "direction" : "out"
+      "name": "res",
+      "type": "http",
+      "direction": "out"
     }
-  ]
+  ],
+  "disabled": false
 }

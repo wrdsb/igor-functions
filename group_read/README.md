@@ -1,1 +1,2 @@
-# Manage Groups
+# Group Read
+Read group settings.
