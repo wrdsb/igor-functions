@@ -1,11 +1,9 @@
 {
   "bindings": [
     {
-      "type": "serviceBusTrigger",
-      "name": "message",
-      "queueName": "members_to_list",
-      "connection": "AzureWebJobsServiceBus",
-      "accessRights": "manage",
+      "name": "req",
+      "type": "httpTrigger",
+      "webHookType": "genericJson",
       "direction": "in"
     },
     {
@@ -16,12 +14,9 @@
       "direction": "out"
     },
     {
-      "type" : "serviceBus",
-      "name" : "$return",
-      "queueName" : "bot_send",
-      "connection" : "AzureWebJobsServiceBus",
-      "accessRights" : "manage",
-      "direction" : "out"
+      "name": "res",
+      "type": "http",
+      "direction": "out"
     }
   ]
 }

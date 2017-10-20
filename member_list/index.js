@@ -1,7 +1,5 @@
-module.exports = function (context, message) {
+module.exports = function (context, data) {
     var google = require('googleapis');
-    var googleAuth = require('google-auth-library');
-
     var directory = google.admin('directory_v1');
 
     var client_email = process.env.client_email;
@@ -11,7 +9,7 @@ module.exports = function (context, message) {
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
 
-    var group_to_list = message.groupKey;
+    var group_to_list = data.group;
     context.log('List memberships for group ' + group_to_list);
     
     // prep our credentials for G Suite APIs
