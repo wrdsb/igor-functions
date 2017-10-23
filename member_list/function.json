@@ -7,9 +7,9 @@
       "direction": "in"
     },
     {
-      "type": "blob",
       "name": "resultBlob",
-      "path": "groups-memberships-actual/{groupKey}.json",
+      "type": "blob",
+      "path": "groups-memberships-actual/{group}.json",
       "connection": "wrdsbcodex_STORAGE",
       "direction": "out"
     },
