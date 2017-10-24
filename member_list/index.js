@@ -36,9 +36,11 @@ module.exports = function (context, data) {
             return;
         }
         getMembers(params, function() {
-           context.log('Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members for ' + group_to_list);
-           context.bindings.resultBlob = JSON.stringify(members);
-           context.done();
+            if (Object.getOwnPropertyNames(members)) {
+                context.log('Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members for ' + group_to_list);
+            }
+            context.bindings.resultBlob = JSON.stringify(members);
+            context.done();
         });
     });
 
@@ -48,10 +50,14 @@ module.exports = function (context, data) {
                 context.log(result);
                 context.done(err);
             }
-            context.log('Got ' + result.members.length + ' more members for ' + group_to_list);
-            result.members.forEach(function(member) {
-                members[member.email] = member;
-            });
+            if (result.members) {
+                context.log('Got ' + result.members.length + ' more members for ' + group_to_list);
+                result.members.forEach(function(member) {
+                    members[member.email] = member;
+                });
+            } else {
+                context.log('Got 0 members for ' + group_to_list);
+            }
             if (result.nextPageToken) {
                 params.pageToken = result.nextPageToken;
                 getMembers(params, callback);
