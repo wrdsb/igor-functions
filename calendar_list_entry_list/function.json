@@ -14,14 +14,6 @@
       "path": "calendar-list-entries/{user}.json",
       "connection": "wrdsbigor_STORAGE",
       "direction": "out"
-    },
-    {
-      "type" : "serviceBus",
-      "name" : "$return",
-      "queueName" : "bot_send",
-      "connection" : "AzureWebJobsServiceBus",
-      "accessRights" : "manage",
-      "direction" : "out"
     }
   ]
 }

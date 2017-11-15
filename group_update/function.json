@@ -7,14 +7,6 @@
       "connection": "AzureWebJobsServiceBus",
       "accessRights": "manage",
       "direction": "in"
-    },
-    {
-      "type" : "serviceBus",
-      "name" : "$return",
-      "queueName" : "bot_send",
-      "connection" : "AzureWebJobsServiceBus",
-      "accessRights" : "manage",
-      "direction" : "out"
     }
   ]
 }
