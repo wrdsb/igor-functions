@@ -1,4 +1,7 @@
 module.exports = function (context, message) {
+    context.log(context.executionContext.functionName);
+    context.log(context.executionContext.invocationId);
+
     var series = require('async/series');
 
     var google = require('googleapis');
