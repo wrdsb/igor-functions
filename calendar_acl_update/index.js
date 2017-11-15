@@ -1,8 +1,5 @@
 module.exports = function (context, message) {
-    var series = require('async/series');
-
     var google = require('googleapis');
-    var googleAuth = require('google-auth-library');
 
     var calendar = google.calendar('v3');
 
@@ -41,26 +38,15 @@ module.exports = function (context, message) {
             context.log(err);
             return;
         }
-        series([
-            function updateCalendarAcl(updateCalendarAclCallback) {
-                calendar.acl.update(params, function (err, result) {
-                    if (err) {
-                        updateCalendarAclCallback(new Error(err));
-                        return;
-                    }
-                    context.log(result);
-                    updateCalendarAclCallback(null, result);
-                });
+        calendar.acl.update(params, function (err, result) {
+            if (err) {
+                context.done(err);
+                return;
             }
-        ],
-            function (err, results) {
-                if (err) {
-                    context.done(err);
-                } else {
-                    calendar_acl_updated = results[0];
-                    context.log(calendar_acl_updated);
-                    context.done();
-                }
-            });
+            context.log(result);
+            calendar_acl_updated = result;
+            context.log(calendar_acl_updated);
+            context.done();
+        });
     });
 };
