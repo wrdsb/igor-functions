@@ -1,7 +1,9 @@
-module.exports = function (context, message) {
-    var google = require('googleapis');
-    var googleAuth = require('google-auth-library');
+module.exports = function (context, data) {
+    // TODO: error handling for missing/malformed group email address
+    var group = data.group;
+    context.log('Delete group: ' + group);
 
+    var google = require('googleapis');
     var directory = google.admin('directory_v1');
 
     var client_email = process.env.client_email;
@@ -11,44 +13,45 @@ module.exports = function (context, message) {
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
 
-    var group_email = message.group.email;
-    context.log('Delete group: ' + group_email);
-
     // prep our credentials for G Suite APIs
     var jwtClient = new google.auth.JWT(
         client_email,
         null,
         private_key,
-        ['https://www.googleapis.com/auth/admin.directory.group','https://www.googleapis.com/auth/apps.groups.settings'], // an array of auth scopes
+        ['https://www.googleapis.com/auth/admin.directory.group','https://www.googleapis.com/auth/apps.groups.settings'],
         user_address
     );
 
     var params = {
         auth: jwtClient,
-        
-        // used by Groups (Directory) API 'GET'
-        groupKey: group_email,
-
-        // specify we want JSON back from the API.
-        // Group Settings API defaults to XML (or Atom), despite the docs
+        groupKey: group,
         alt: "json"
     };
 
-
     jwtClient.authorize(function(err, tokens) {
         if (err) {
-            context.log(err);
+            context.res = {
+                status: 500,
+                body: err
+            };
+            context.done(err);
             return;
         }
         directory.groups.delete(
             params,
             function(err, result) {
-                if (err) { 
-                    context.log(result);
+                if (err) {
+                    context.res = {
+                        status: 500,
+                        body: err
+                    };
                     context.done(err);
                 } else {
-                    context.log(result);
-                    context.done();
+                    context.res = {
+                        status: 200,
+                        body: "Deleted group " + group
+                    };
+                    context.done(null, "Deleted group " + group);
                 }
             }
         );

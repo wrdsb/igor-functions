@@ -45,7 +45,11 @@ module.exports = function (context, data) {
 
     jwtClient.authorize(function(err, tokens) {
         if (err) {
-            context.log(err);
+            context.res = {
+                status: 500,
+                body: err
+            };
+            context.done(err);
             return;
         }
         getGroups(params, function() {
@@ -98,14 +102,17 @@ module.exports = function (context, data) {
                 body: res_body
             };
 
-            context.done();
+            context.done(null, 'Final results: Got ' + groups_all_array.length + ' groups and ' + groups_created_admin_array.length + ' admin-created groups.');
         });
     });
 
     function getGroups(params, callback) {
         directory.groups.list(params, function(err, result) {
             if (err) {
-                context.log(result);
+                context.res = {
+                    status: 500,
+                    body: err
+                };
                 context.done(err);
             }
 

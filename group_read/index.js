@@ -1,9 +1,15 @@
 module.exports = function (context, data) {
-    context.log(data);
+    // TODO: error handling for missing/malformed group email address
+    var group_email = data.group;
+    if (!group_email) {
+        context.done('Group email missing.');
+        return;
+    }
+    context.log('Read group: ' + group_email);
+    
     var series = require('async/series');
 
     var google = require('googleapis');
-
     var directory = google.admin('directory_v1');
     var groupssettings = google.groupssettings('v1');
 
@@ -14,13 +20,6 @@ module.exports = function (context, data) {
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
 
-    var group_email = data.group;
-    if (!group_email) {
-        context.done('Group email missing.');
-        return;
-    }
-    context.log('Read group: ' + group_email);
-    
     // stores our Group in the end
     var group = {};
 
@@ -50,7 +49,11 @@ module.exports = function (context, data) {
 
     jwtClient.authorize(function(err, tokens) {
         if (err) {
-            context.log(err);
+            context.res = {
+                status: 500,
+                body: err
+            };
+            context.done(err);
             return;
         }
         series([
@@ -79,6 +82,10 @@ module.exports = function (context, data) {
         ],
         function (err, results) {
             if (err) {
+                context.res = {
+                    status: 500,
+                    body: err
+                };
                 context.done(err);
             } else {
                 group = Object.assign(results[0], results[1]);

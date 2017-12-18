@@ -1,9 +1,10 @@
-module.exports = function (context, message) {
+module.exports = function (context, data) {
+    var group_to_create = data.group;
+    context.log('Create group: ' + group_to_create.email);
+    
     var series = require('async/series');
 
     var google = require('googleapis');
-    var googleAuth = require('google-auth-library');
-
     var directory = google.admin('directory_v1');
     var groupssettings = google.groupssettings('v1');
 
@@ -14,9 +15,6 @@ module.exports = function (context, message) {
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
 
-    var group_to_create = message.group;
-    context.log('Create group: ' + group_to_create.email);
-    
     // stores our group in the end
     var group_created = {};
 
@@ -43,7 +41,11 @@ module.exports = function (context, message) {
 
     jwtClient.authorize(function(err, tokens) {
         if (err) {
-            context.log(err);
+            context.res = {
+                status: 500,
+                body: err
+            };
+            context.done(err);
             return;
         }
         series([
@@ -72,11 +74,18 @@ module.exports = function (context, message) {
         ],
         function (err, results) {
             if (err) {
+                context.res = {
+                    status: 500,
+                    body: err
+                };
                 context.done(err);
             } else {
                 group_created = Object.assign(results[0], results[1]);
-                context.log(group_created);
-                context.done();
+                context.res = {
+                    status: 200,
+                    body: JSON.stringify(group_created)
+                };
+                context.done(null, group_created);
             }
         });
     });
