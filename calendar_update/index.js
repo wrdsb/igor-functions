@@ -1,4 +1,4 @@
 module.exports = function (context, data) {
-    context.log(data);
-    context.done();
+    context.res = data;
+    context.done(null, data);
 };

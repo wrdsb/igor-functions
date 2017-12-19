@@ -26,15 +26,26 @@ module.exports = function (context, data) {
 
     jwtClient.authorize(function (err, tokens) {
         if (err) {
+            context.res = {
+                status: 500,
+                body: err
+            };
             context.done(err);
             return;
         }
         calendar.calendars.delete(params, function (err, result) {
             if (err) {
+                context.res = {
+                    status: 500,
+                    body: err
+                };
                 context.done(err);
                 return;
             }
-            context.log(result);
+            context.res = {
+                status: 200,
+                body: JSON.stringify(result)
+            };
             context.done(null, result);
         });
     });
