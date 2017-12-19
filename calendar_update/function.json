@@ -11,5 +11,6 @@
       "type": "http",
       "direction": "out"
     }
-  ]
+  ],
+  "disabled": false
 }
