@@ -1,5 +1,4 @@
-module.exports = function (context, message) {
-    context.log(message);
-
-    context.done();
+module.exports = function (context, data) {
+    context.res = data;
+    context.done(null, data);
 };
