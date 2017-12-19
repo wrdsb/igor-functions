@@ -46,6 +46,7 @@ module.exports = function (context, data) {
                         body: err
                     };
                     context.done(err);
+                    return;
                 } else {
                     context.res = {
                         status: 200,

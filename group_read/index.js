@@ -87,6 +87,7 @@ module.exports = function (context, data) {
                     body: err
                 };
                 context.done(err);
+                return;
             } else {
                 group = Object.assign(results[0], results[1]);
                 context.bindings.resultBlob = JSON.stringify(group);

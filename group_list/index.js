@@ -114,6 +114,7 @@ module.exports = function (context, data) {
                     body: err
                 };
                 context.done(err);
+                return;
             }
 
             context.log('Got ' + result.groups.length + ' groups.');
