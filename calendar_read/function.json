@@ -1,18 +1,14 @@
 {
   "bindings": [
     {
-      "type": "serviceBusTrigger",
-      "name": "message",
-      "queueName": "calendars_to_read",
-      "connection": "AzureWebJobsServiceBus",
-      "accessRights": "manage",
+      "name": "req",
+      "type": "httpTrigger",
+      "webHookType": "genericJson",
       "direction": "in"
     },
     {
-      "type": "blob",
-      "name": "resultBlob",
-      "path": "calendars/{calendarId}.json",
-      "connection": "wrdsbigor_STORAGE",
+      "name": "$return",
+      "type": "http",
       "direction": "out"
     }
   ]
