@@ -79,6 +79,7 @@ module.exports = function (context, data) {
                     body: err
                 };
                 context.done(err);
+                return;
             } else {
                 group_created = Object.assign(results[0], results[1]);
                 context.res = {
