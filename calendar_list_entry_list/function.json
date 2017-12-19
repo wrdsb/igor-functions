@@ -1,19 +1,16 @@
 {
   "bindings": [
     {
-      "type": "serviceBusTrigger",
-      "name": "message",
-      "queueName": "calendar_list_entries_to_list",
-      "connection": "AzureWebJobsServiceBus",
-      "accessRights": "manage",
+      "name": "req",
+      "type": "httpTrigger",
+      "webHookType": "genericJson",
       "direction": "in"
     },
     {
-      "type": "blob",
-      "name": "resultBlob",
-      "path": "calendar-list-entries/{user}.json",
-      "connection": "wrdsbigor_STORAGE",
+      "name": "res",
+      "type": "http",
       "direction": "out"
     }
-  ]
+  ],
+  "disabled": false
 }
