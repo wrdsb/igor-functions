@@ -7,7 +7,7 @@
       "direction": "in"
     },
     {
-      "name": "$return",
+      "name": "res",
       "type": "http",
       "direction": "out"
     }
