@@ -35,7 +35,7 @@ module.exports = function (context, data) {
                 return;
             }
             context.log(result);
-            context.done();
+            context.done(null, result);
         });
     });
 };

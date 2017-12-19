@@ -35,7 +35,6 @@ module.exports = function (context, data) {
                 return;
             }
             context.log(result);
-            context.bindings.resultBlob = JSON.stringify(result);
             context.done(null, result);
         });
     });
