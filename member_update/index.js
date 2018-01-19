@@ -1,6 +1,10 @@
-module.exports = function (context, message) {
-    var google = require('googleapis');
+module.exports = function (context, data) {
+    var member_to_update = data;
 
+    context.log(context.executionContext.functionName + ': ' + context.executionContext.invocationId);
+    context.log('Update membership for '+ member_to_update.memberKey +' in group '+ member_to_update.groupKey +' to role '+ member_to_update.role);
+
+    var google = require('googleapis');
     var directory = google.admin('directory_v1');
 
     var client_email = process.env.client_email;
@@ -9,8 +13,6 @@ module.exports = function (context, message) {
 
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
-
-    context.log('Update membership for '+ message.memberKey +' in group '+ message.groupKey +' to role '+ message.role);
 
     // prep our credentials for G Suite APIs
     var jwtClient = new google.auth.JWT(
@@ -24,10 +26,10 @@ module.exports = function (context, message) {
     var params = {
         auth: jwtClient,
         alt: "json",
-        memberKey: message.memberKey,
-        groupKey: message.groupKey,
+        memberKey: member_to_update.memberKey,
+        groupKey: member_to_update.groupKey,
         resource: {
-            role: message.role
+            role: member_to_update.role
         }
     };
 
@@ -43,7 +45,7 @@ module.exports = function (context, message) {
                 return;
             } else {
                 context.log(result);
-                context.done(null, 'Updated membership for '+ message.memberKey +' in group '+ message.groupKey +' to role '+ message.role);
+                context.done(null, 'Updated membership for '+ member_to_update.memberKey +' in group '+ member_to_update.groupKey +' to role '+ member_to_update.role);
                 return;
             }
         });

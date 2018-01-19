@@ -1,14 +1,13 @@
-module.exports = function (context, message) {
-    context.log(context.executionContext.functionName);
-    context.log(context.executionContext.invocationId);
+module.exports = function (context, data) {
+    var member_to_create = data;
+
+    context.log(context.executionContext.functionName + ': ' + context.executionContext.invocationId);
+    context.log('Create membership for ' + member_to_create.email + ' in group ' + member_to_create.groupKey);
 
     var series = require('async/series');
 
     var google = require('googleapis');
-    var googleAuth = require('google-auth-library');
-
     var directory = google.admin('directory_v1');
-    var groupssettings = google.groupssettings('v1');
 
     var client_email = process.env.client_email;
     var private_key = process.env.private_key;
@@ -17,9 +16,6 @@ module.exports = function (context, message) {
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
 
-    var member_to_create = message;
-    context.log('Create membership for ' + member_to_create.email + ' in group ' + member_to_create.groupKey);
-    
     // stores our member in the end
     var member_created = {};
 

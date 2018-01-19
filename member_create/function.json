@@ -1,12 +1,16 @@
 {
   "bindings": [
     {
-      "type": "serviceBusTrigger",
-      "name": "message",
-      "queueName": "members_to_create",
-      "connection": "AzureWebJobsServiceBus",
-      "accessRights": "manage",
+      "name": "req",
+      "type": "httpTrigger",
+      "webHookType": "genericJson",
       "direction": "in"
+    },
+    {
+      "name": "res",
+      "type": "http",
+      "direction": "out"
     }
-  ]
+  ],
+  "disabled": false
 }

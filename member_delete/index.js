@@ -1,11 +1,13 @@
-module.exports = function (context, message) {
+module.exports = function (context, data) {
+    var member_to_delete = data;
+
+    context.log(context.executionContext.functionName + ': ' + context.executionContext.invocationId);
+    context.log('Delete membership for ' + member_to_delete.email + ' in group ' + member_to_delete.groupKey);
+
     var series = require('async/series');
 
     var google = require('googleapis');
-    var googleAuth = require('google-auth-library');
-
     var directory = google.admin('directory_v1');
-    var groupssettings = google.groupssettings('v1');
 
     var client_email = process.env.client_email;
     var private_key = process.env.private_key;
@@ -13,9 +15,6 @@ module.exports = function (context, message) {
 
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
-
-    var member_to_delete = message;
-    context.log('Delete membership for ' + member_to_delete.email + ' in group ' + member_to_delete.groupKey);
 
     // stores our member in the end
     var member_deleted = {};
