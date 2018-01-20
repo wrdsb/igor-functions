@@ -32,6 +32,10 @@ module.exports = function (context, data) {
 
     var members = {};
 
+    var memberships = {};
+    memberships.id = group_to_list;
+    memberships.actual = [];
+
     jwtClient.authorize(function(err, tokens) {
         if (err) {
             context.log(err);
@@ -44,9 +48,9 @@ module.exports = function (context, data) {
             context.bindings.resultBlob = JSON.stringify(members);
             context.res = {
                 status: 200,
-                body: members
+                body: memberships
             };
-            context.done(null, JSON.stringify(members));
+            context.done(null, JSON.stringify(memberships));
         });
     });
 
@@ -60,6 +64,7 @@ module.exports = function (context, data) {
                 context.log('Got ' + result.members.length + ' more members for ' + group_to_list);
                 result.members.forEach(function(member) {
                     members[member.email] = member;
+                    memberships.actual.push(member);
                 });
             } else {
                 context.log('Got 0 members for ' + group_to_list);
