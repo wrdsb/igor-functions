@@ -93,7 +93,7 @@ module.exports = function (context, data) {
                 context.bindings.resultBlob = JSON.stringify(group);
                 context.res = {
                     status: 200,
-                    body: JSON.stringify(group)
+                    body: group
                 };
                 context.done(null, JSON.stringify(group));
             }
