@@ -42,7 +42,11 @@ module.exports = function (context, data) {
                 context.log('Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members for ' + group_to_list);
             }
             context.bindings.resultBlob = JSON.stringify(members);
-            context.done();
+            context.res = {
+                status: 200,
+                body: members
+            };
+            context.done(null, JSON.stringify(members));
         });
     });
 
