@@ -73,28 +73,28 @@ module.exports = function (context, data) {
 
             switch (return_type) {
                 case 'all_groups_array':
-                    res_body = JSON.stringify(groups_all_array);
+                    res_body = groups_all_array;
                     break;
                 case 'admin_created_groups_array':
-                    res_body = JSON.stringify(groups_created_admin_array);
+                    res_body = groups_created_admin_array;
                     break;
                 case 'user_created_groups_array':
-                    res_body = JSON.stringify(groups_created_user_array);
+                    res_body = groups_created_user_array;
                     break;
                 case 'all_groups_object':
-                    res_body = JSON.stringify(groups_all_object);
+                    res_body = groups_all_object;
                     break;
                 case 'admin_created_groups_object':
-                    res_body = JSON.stringify(groups_created_admin_object);
+                    res_body = groups_created_admin_object;
                     break;
                 case 'user_created_groups_object':
-                    res_body = JSON.stringify(groups_created_user_object);
+                    res_body = groups_created_user_object;
                     break;
                 case 'stats':
-                    res_body = JSON.stringify(res_stats);
+                    res_body = res_stats;
                     break;
                 default:
-                    res_body = JSON.stringify(res_stats);
+                    res_body = res_stats;
             }
 
             context.res = {
