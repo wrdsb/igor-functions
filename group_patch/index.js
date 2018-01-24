@@ -1,6 +1,7 @@
 module.exports = function (context, data) {
-    var group_to_patch = data.group;
-    context.log('Patch group: ' + group_to_patch);
+    var group = data.group;
+    var patch = data.patch;
+    context.log('Patch group: ' + group);
     
     var series = require('async/series');
 
@@ -30,9 +31,9 @@ module.exports = function (context, data) {
     var params = {
         auth: jwtClient,
         alt: "json",
-        resource: group_to_patch,
-        groupKey: group_to_patch.email,
-        groupUniqueId: group_to_patch.email
+        resource: patch,
+        groupKey: group,
+        groupUniqueId: group
     };
 
     jwtClient.authorize(function(err, tokens) {
