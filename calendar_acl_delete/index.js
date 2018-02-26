@@ -1,9 +1,7 @@
-module.exports = function (context, message) {
+module.exports = function (context, data) {
     var series = require('async/series');
 
     var google = require('googleapis');
-    var googleAuth = require('google-auth-library');
-
     var calendar = google.calendar('v3');
 
     var client_email = process.env.client_email;
@@ -12,8 +10,8 @@ module.exports = function (context, message) {
 
     private_key = private_key.split('\\n').join("\n");
 
-    var calendar_acl_to_delete = message.rule_id;
-    var calendar_id = message.calendar_id;
+    var calendar_acl_to_delete = data.rule_id;
+    var calendar_id = data.calendar_id;
 
     var jwtClient = new google.auth.JWT(
         client_email,
@@ -51,6 +49,10 @@ module.exports = function (context, message) {
                 context.done(err);
             } else {
                 context.log('Deleted ' + calendar_acl_to_delete + ' ACL on ' + calendar_id);
+                context.res = {
+                    status: 200,
+                    body: 'Deleted ' + calendar_acl_to_delete + ' ACL on ' + calendar_id
+                };
                 context.done(null, 'Deleted ' + calendar_acl_to_delete + ' ACL on ' + calendar_id);
             }
         });
