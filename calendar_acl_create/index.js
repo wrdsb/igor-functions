@@ -1,9 +1,7 @@
-module.exports = function (context, message) {
+module.exports = function (context, data) {
     var series = require('async/series');
 
     var google = require('googleapis');
-    var googleAuth = require('google-auth-library');
-
     var calendar = google.calendar('v3');
 
     var client_email = process.env.client_email;
@@ -13,8 +11,8 @@ module.exports = function (context, message) {
     // *sigh* because Azure Functions application settings can't handle newlines, let's add them ourselves:
     private_key = private_key.split('\\n').join("\n");
 
-    var calendar_acl_to_create = message.acl;
-    var calendar_id = message.calendar_id;
+    var calendar_acl_to_create = data.acl;
+    var calendar_id = data.calendar_id;
     context.log('Create ' + calendar_acl_to_create.role + ' ACL for ' + calendar_acl_to_create.scope.value + ' on ' + calendar_id);
 
     // stores our calendar in the end
@@ -60,6 +58,10 @@ module.exports = function (context, message) {
             } else {
                 calendar_acl_created = results[0];
                 context.log('Created ' + calendar_acl_to_create.role + ' ACL for ' + calendar_acl_to_create.scope.value + ' on ' + calendar_id);
+                context.res = {
+                    status: 200,
+                    body: 'Created ' + calendar_acl_to_create.role + ' ACL for ' + calendar_acl_to_create.scope.value + ' on ' + calendar_id
+                };
                 context.done(null, 'Created ' + calendar_acl_to_create.role + ' ACL for ' + calendar_acl_to_create.scope.value + ' on ' + calendar_id);
             }
         });
