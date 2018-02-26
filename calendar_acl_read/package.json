@@ -1,7 +1,7 @@
 {
   "name": "calendar_acl_read",
   "version": "0.0.1",
-  "description": "Reads Calendar ACLs based on messages from the calendar_acls_to_read Service Bus queue.",
+  "description": "Reads Calendar ACLs.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

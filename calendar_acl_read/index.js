@@ -1,5 +1,5 @@
-module.exports = function (context, message) {
-    context.log(message);
+module.exports = function (context, data) {
+    context.log(data);
 
     context.done();
 };
