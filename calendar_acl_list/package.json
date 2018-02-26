@@ -1,7 +1,7 @@
 {
   "name": "calendar_acl_list",
   "version": "0.0.1",
-  "description": "Lists Calendar ACLs and returns them in the HTTP response.",
+  "description": "Lists Calendar ACLs.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
