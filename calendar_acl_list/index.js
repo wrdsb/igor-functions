@@ -28,6 +28,9 @@ module.exports = function (context, data) {
     };
 
     var members = {};
+    var memberships = {};
+    memberships.id = data.calendar;
+    memberships.actual = [];
 
     jwtClient.authorize(function(err, tokens) {
         if (err) {
@@ -40,10 +43,14 @@ module.exports = function (context, data) {
                 } else {
                     result.items.forEach(function(member) {
                         members[member.scope.value] = member;
+                        memberships.actual.push(member);
                     });
                     context.log('Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members for ' + data.calendar);
-                    context.bindings.resultBlob = JSON.stringify(members);
-                    context.done(null, 'Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members for ' + data.calendar);
+                    context.res = {
+                        status: 200,
+                        body: memberships
+                    };
+                    context.done(null, JSON.stringify(memberships));
                 }
             });
         }
