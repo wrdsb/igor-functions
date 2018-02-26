@@ -1,6 +1,5 @@
-module.exports = function (context, message) {
+module.exports = function (context, data) {
     var google = require('googleapis');
-
     var calendar = google.calendar('v3');
 
     var client_email = process.env.client_email;
@@ -9,9 +8,9 @@ module.exports = function (context, message) {
 
     private_key = private_key.split('\\n').join("\n");
 
-    var calendar_acl_to_update = message.acl;
-    var calendar_id = message.calendar_id;
-    var rule_id = message.rule_id;
+    var calendar_acl_to_update = data.acl;
+    var calendar_id = data.calendar_id;
+    var rule_id = data.rule_id;
 
     context.log(calendar_acl_to_update);
 
@@ -46,6 +45,10 @@ module.exports = function (context, message) {
             context.log(result);
             calendar_acl_updated = result;
             context.log(calendar_acl_updated);
+            context.res = {
+                status: 200,
+                body: calendar_acl_updated
+            };
             context.done();
         });
     });

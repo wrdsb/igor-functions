@@ -1,7 +1,7 @@
 {
   "name": "calendar_acl_update",
   "version": "0.0.1",
-  "description": "Updates Calendar ACLs based on messages from the calendar_acls_to_update Service Bus queue.",
+  "description": "Updates Calendar ACLs.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
