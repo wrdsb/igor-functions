@@ -60,7 +60,7 @@ module.exports = function (context, data) {
                 context.done(err);
             }
             if (result.items) {
-                context.log('Got ' + result.members.length + ' more members for ' + calendar_to_list);
+                context.log('Got ' + result.items.length + ' more members for ' + calendar_to_list);
                 result.items.forEach(function(member) {
                     members[member.scope.value] = member;
                     memberships.actual.push(member);
