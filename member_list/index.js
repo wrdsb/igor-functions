@@ -30,11 +30,9 @@ module.exports = function (context, data) {
         maxResults: 200
     };
 
-    var members = {};
-
     var memberships = {};
     memberships.id = group_to_list;
-    memberships.actual = [];
+    memberships.actual = {};
 
     jwtClient.authorize(function(err, tokens) {
         if (err) {
@@ -42,10 +40,10 @@ module.exports = function (context, data) {
             return;
         }
         getMembers(params, function() {
-            if (Object.getOwnPropertyNames(members)) {
-                context.log('Final results: Got ' + Object.getOwnPropertyNames(members).length + ' members for ' + group_to_list);
+            if (Object.getOwnPropertyNames(memberships.actual)) {
+                context.log('Final results: Got ' + Object.getOwnPropertyNames(memberships.actual).length + ' members for ' + group_to_list);
             }
-            context.bindings.resultBlob = JSON.stringify(members);
+            context.bindings.resultBlob = JSON.stringify(memberships);
             context.res = {
                 status: 200,
                 body: memberships
@@ -63,8 +61,7 @@ module.exports = function (context, data) {
             if (result.members) {
                 context.log('Got ' + result.members.length + ' more members for ' + group_to_list);
                 result.members.forEach(function(member) {
-                    members[member.email] = member;
-                    memberships.actual.push(member);
+                    memberships.actual[member.email] = member;
                 });
             } else {
                 context.log('Got 0 members for ' + group_to_list);
