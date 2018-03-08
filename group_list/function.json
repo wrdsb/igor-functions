@@ -7,20 +7,6 @@
       "direction": "in"
     },
     {
-      "name": "groupsAllObject",
-      "type": "blob",
-      "path": "groups-lists/groups-all-object.json",
-      "connection": "wrdsbcodex_STORAGE",
-      "direction": "out"
-    },
-    {
-      "name": "groupsAllArray",
-      "type": "blob",
-      "path": "groups-lists/groups-all-array.json",
-      "connection": "wrdsbcodex_STORAGE",
-      "direction": "out"
-    },
-    {
       "name": "res",
       "type": "http",
       "direction": "out"

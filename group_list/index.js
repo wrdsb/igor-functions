@@ -50,9 +50,6 @@ module.exports = function (context, data) {
         getGroups(params, function() {
             context.log('Final results: Got ' + groups_all_array.length + ' groups.');
 
-            context.bindings.groupsAllObject = JSON.stringify(groups_all_object);
-            context.bindings.groupsAllArray = JSON.stringify(groups_all_array);
-
             switch (return_type) {
                 case 'all_groups_array':
                     res_body = groups_all_array;
