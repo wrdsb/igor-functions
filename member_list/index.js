@@ -43,7 +43,6 @@ module.exports = function (context, data) {
             if (Object.getOwnPropertyNames(memberships.actual)) {
                 context.log('Final results: Got ' + Object.getOwnPropertyNames(memberships.actual).length + ' members for ' + group_to_list);
             }
-            context.bindings.resultBlob = JSON.stringify(memberships);
             context.res = {
                 status: 200,
                 body: memberships
