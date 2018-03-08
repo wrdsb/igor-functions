@@ -2,17 +2,12 @@ module.exports = function (context, data) {
     // parse request params
     context.log('Requested return_type: ' + data.return_type);
     var return_type = data.return_type;
-    if (!return_type) { return_type = 'stats' }
+    if (!return_type) { return_type = 'array' }
     context.log('Using return_type: ' + return_type);
 
-    // stores our Groups in the end; one set for objects, another for arrays
+    // stores our Groups in the end; one result for objects, another for arrays
     var groups_all_object = {};
-    var groups_created_admin_object = {};
-    var groups_created_user_object = {};
-
     var groups_all_array = [];
-    var groups_created_admin_array = [];
-    var groups_created_user_array = [];
 
     // the data we'll return as 'res' body
     var res_body;
@@ -53,48 +48,20 @@ module.exports = function (context, data) {
             return;
         }
         getGroups(params, function() {
-            context.log('Final results: Got ' + groups_all_array.length + ' groups and ' + groups_created_admin_array.length + ' admin-created groups.');
-
-            var res_stats = {
-                total_groups: groups_all_array.length,
-                total_admin_created_groups: groups_created_admin_array.length,
-                total_user_created_groups: groups_created_user_array.length
-            };
+            context.log('Final results: Got ' + groups_all_array.length + ' groups.');
 
             context.bindings.groupsAllObject = JSON.stringify(groups_all_object);
-            context.bindings.groupsCreatedAdminObject = JSON.stringify(groups_created_admin_object);
-            context.bindings.groupsCreatedUserObject = JSON.stringify(groups_created_user_object);
-
             context.bindings.groupsAllArray = JSON.stringify(groups_all_array);
-            context.bindings.groupsCreatedAdminArray = JSON.stringify(groups_created_admin_array);
-            context.bindings.groupsCreatedUserArray = JSON.stringify(groups_created_user_array);
-
-            context.bindings.groupsStats = JSON.stringify(res_stats);
 
             switch (return_type) {
                 case 'all_groups_array':
                     res_body = groups_all_array;
                     break;
-                case 'admin_created_groups_array':
-                    res_body = groups_created_admin_array;
-                    break;
-                case 'user_created_groups_array':
-                    res_body = groups_created_user_array;
-                    break;
                 case 'all_groups_object':
                     res_body = groups_all_object;
                     break;
-                case 'admin_created_groups_object':
-                    res_body = groups_created_admin_object;
-                    break;
-                case 'user_created_groups_object':
-                    res_body = groups_created_user_object;
-                    break;
-                case 'stats':
-                    res_body = res_stats;
-                    break;
                 default:
-                    res_body = res_stats;
+                    res_body = groups_all_array;
             }
 
             context.res = {
@@ -102,7 +69,7 @@ module.exports = function (context, data) {
                 body: res_body
             };
 
-            context.done(null, 'Final results: Got ' + groups_all_array.length + ' groups and ' + groups_created_admin_array.length + ' admin-created groups.');
+            context.done(null, 'Final results: Got ' + groups_all_array.length + ' groups.');
         });
     });
 
@@ -120,18 +87,8 @@ module.exports = function (context, data) {
             context.log('Got ' + result.groups.length + ' groups.');
 
             result.groups.forEach(function(group) {
-
                 groups_all_object[group.email] = group;
                 groups_all_array.push(group);
-
-                if (group.adminCreated) {
-                    groups_created_admin_object[group.email] = group;
-                    groups_created_admin_array.push(group);
-                } else {
-                    groups_created_user_object[group.email] = group;
-                    groups_created_user_array.push(group);
-                }
-
             });
 
             if (result.nextPageToken) {
