@@ -12,6 +12,13 @@
       "direction": "out"
     },
     {
+      "name": "outputBlob",
+      "type": "blob",
+      "path": "groups-memberships/{group}.json",
+      "connection": "wrdsb-igor_STORAGE",
+      "direction": "out"
+    },
+    {
       "name": "flynnGrid",
       "type": "eventHub",
       "path": "flynn-events",
