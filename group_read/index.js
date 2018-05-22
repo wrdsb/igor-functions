@@ -10,7 +10,6 @@ module.exports = function (context, data) {
         context.done('Group email missing.');
         return;
     }
-    context.log('Read group: ' + group_id);
     
     var series = require('async/series');
 
