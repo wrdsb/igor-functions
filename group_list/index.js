@@ -57,15 +57,16 @@ module.exports = function (context, data) {
             var flynn_event = {
                 eventID: `${event_type}-${context.executionContext.invocationId}`,
                 eventType: event_type,
-                source: `/google/groups/list`,
-                schemaURL: "ca.wrdsb.igor.google_groups.list.json",
+                source: `/google/groups`,
+                schemaURL: "https://mcp.wrdsb.io/schemas/igor/group_list-event.json",
                 extensions: { 
-                    label: "igor lists google_groups", 
+                    label: "IGOR lists Google Groups",
                     tags: [
-                        "igor", 
-                        "google_groups", 
+                        "igor",
+                        "google_group",
+                        "google_groups",
                         "list"
-                    ] 
+                    ]
                 },
                 data: {
                     function_name: context.executionContext.functionName,
