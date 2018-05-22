@@ -1,4 +1,8 @@
 module.exports = function (context, data) {
+    var execution_timestamp = (new Date()).toJSON();  // format: 2012-04-23T18:25:43.511Z
+    // Array to store messages being sent to Flynn Grid
+    var events = [];
+
     var member_to_update = data;
 
     context.log(context.executionContext.functionName + ': ' + context.executionContext.invocationId);
@@ -44,9 +48,44 @@ module.exports = function (context, data) {
                 context.done(err);
                 return;
             } else {
-                context.log(result);
-                context.done(null, 'Updated membership for '+ member_to_update.email +' in group '+ member_to_update.groupKey +' to role '+ member_to_update.role);
-                return;
+                var message = 'Updated membership for '+ member_to_update.email +' in group '+ member_to_update.groupKey +' to role '+ member_to_update.role;
+                var event_type = "ca.wrdsb.igor.google_group_membership.update";
+                var flynn_event = {
+                    eventID: `${event_type}-${context.executionContext.invocationId}`,
+                    eventType: event_type,
+                    source: `/google/group/${member_to_update.groupKey}/membership/update`,
+                    schemaURL: "https://mcp.wrdsb.io/schemas/igor/member_update-event.json",
+                    extensions: { 
+                        label: "IGOR updates Google Group Membership", 
+                        tags: [
+                            "igor", 
+                            "google_group",
+                            "google_groups",
+                            "google_group_memberships",
+                            "google_groups_memberships",
+                            "update"
+                        ] 
+                    },
+                    data: {
+                        function_name: context.executionContext.functionName,
+                        invocation_id: context.executionContext.invocationId,
+                        payload: member_to_update,
+                        message: message
+                    },
+                    eventTime: execution_timestamp,
+                    eventTypeVersion: "0.1",
+                    cloudEventsVersion: "0.1",
+                    contentType: "application/json"
+                };
+                events.push(JSON.stringify(flynn_event));
+
+                context.res = {
+                    status: 200,
+                    body: flynn_event.data
+                };
+
+                context.log(message);
+                context.done(null, message);
             }
         });
     });

@@ -53,7 +53,7 @@ module.exports = function (context, data) {
         }
         getGroups(params, function() {
             var message = 'Final results: Got ' + groups_all_array.length + ' groups.';
-            var event_type = "ca.wrdsb.igor.google_groups.list";
+            var event_type = "ca.wrdsb.igor.google_group.list";
             var flynn_event = {
                 eventID: `${event_type}-${context.executionContext.invocationId}`,
                 eventType: event_type,

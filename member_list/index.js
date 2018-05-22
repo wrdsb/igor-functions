@@ -55,7 +55,7 @@ module.exports = function (context, data) {
             if (memberships_array.length > 0) {
                 message = 'Final results: Got ' + memberships_array.length + ' members for ' + group_id;
             }
-            var event_type = "ca.wrdsb.igor.google_groups_memberships.list";
+            var event_type = "ca.wrdsb.igor.google_group_membership.list";
             var flynn_event = {
                 eventID: `${event_type}-${context.executionContext.invocationId}`,
                 eventType: event_type,

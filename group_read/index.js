@@ -96,12 +96,12 @@ module.exports = function (context, data) {
                 return;
             } else {
                 var group_object = Object.assign(results[0], results[1]);
-                var message = 'Successfully read group ' + group_id;
-                var event_type = "ca.wrdsb.igor.google_groups.read";
+                var message = 'Successfully read group ' + group_object.email;
+                var event_type = "ca.wrdsb.igor.google_group.read";
                 var flynn_event = {
                     eventID: `${event_type}-${context.executionContext.invocationId}`,
                     eventType: event_type,
-                    source: `/google/group/${group_id}`,
+                    source: `/google/group/${group_object.email}`,
                     schemaURL: "https://mcp.wrdsb.io/schemas/igor/group_read-event.json",
                     extensions: {
                         label: "IGOR reads Google Group",
@@ -121,7 +121,7 @@ module.exports = function (context, data) {
                                 {
                                     name: group_id,
                                     storage_account: "wrdsb-igor_STORAGE",
-                                    path: `groups-groups/${group_id}.json`
+                                    path: `groups-groups/${group_object.email}.json`
                                 }
                             ]
                         },

@@ -1,4 +1,8 @@
 module.exports = function (context, data) {
+    var execution_timestamp = (new Date()).toJSON();  // format: 2012-04-23T18:25:43.511Z
+    // Array to store messages being sent to Flynn Grid
+    var events = [];
+
     var group_to_update = data.group;
     context.log('Update group: ' + group_to_update);
     
@@ -83,11 +87,42 @@ module.exports = function (context, data) {
                 return;
             } else {
                 group_updated = Object.assign(results[0], results[1]);
+                var message = "Updated group "+ group_updated.email;
+                var event_type = "ca.wrdsb.igor.google_group.update";
+                var flynn_event = {
+                    eventID: `${event_type}-${context.executionContext.invocationId}`,
+                    eventType: event_type,
+                    source: `/google/group/${group_updated.email}/update`,
+                    schemaURL: "https://mcp.wrdsb.io/schemas/igor/group_update-event.json",
+                    extensions: { 
+                        label: "IGOR updates Google Group", 
+                        tags: [
+                            "igor", 
+                            "google_group",
+                            "google_groups",
+                            "update"
+                        ] 
+                    },
+                    data: {
+                        function_name: context.executionContext.functionName,
+                        invocation_id: context.executionContext.invocationId,
+                        payload: group_to_update,
+                        message: message
+                    },
+                    eventTime: execution_timestamp,
+                    eventTypeVersion: "0.1",
+                    cloudEventsVersion: "0.1",
+                    contentType: "application/json"
+                };
+                events.push(JSON.stringify(flynn_event));
+
                 context.res = {
                     status: 200,
-                    body: JSON.stringify(group_updated)
+                    body: flynn_event.data
                 };
-                context.done(null, group_updated);
+
+                context.log(message);
+                context.done(null, message);
             }
         });
     });
