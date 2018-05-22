@@ -1,4 +1,8 @@
 module.exports = function (context, data) {
+    var execution_timestamp = (new Date()).toJSON();  // format: 2012-04-23T18:25:43.511Z
+    // Array to store messages being sent to Flynn Grid
+    var events = [];
+
     // parse request params
     context.log('Requested return_type: ' + data.return_type);
     var return_type = data.return_type;
@@ -48,25 +52,69 @@ module.exports = function (context, data) {
             return;
         }
         getGroups(params, function() {
-            context.log('Final results: Got ' + groups_all_array.length + ' groups.');
+            var message = 'Final results: Got ' + groups_all_array.length + ' groups.';
+            var event_type = "ca.wrdsb.igor.google_groups.list";
+            var flynn_event = {
+                eventID: `${event_type}-${context.executionContext.invocationId}`,
+                eventType: event_type,
+                source: `/google/groups/list`,
+                schemaURL: "ca.wrdsb.igor.google_groups.list.json",
+                extensions: { 
+                    label: "igor lists google_groups", 
+                    tags: [
+                        "igor", 
+                        "google_groups", 
+                        "list"
+                    ] 
+                },
+                data: {
+                    function_name: context.executionContext.functionName,
+                    invocation_id: context.executionContext.invocationId,
+                    payload: {
+                        blobs: [
+                            {
+                                name: "all-groups-array",
+                                storage_account: "wrdsb-igor_STORAGE",
+                                path: "groups-lists/all-groups-array.json"
+                            },
+                            {
+                                name: "all-groups-object",
+                                storage_account: "wrdsb-igor_STORAGE",
+                                path: "groups-lists/all-groups-object.json"
+                            }
+                        ]
+                    },
+                    message: message
+                },
+                eventTime: execution_timestamp,
+                eventTypeVersion: "0.1",
+                cloudEventsVersion: "0.1",
+                contentType: "application/json"
+            };
+            events.push(JSON.stringify(flynn_event));
+            context.bindings.allGroupsArrayBlob = groups_all_array;
+            context.bindings.allGroupsObjectBlob = groups_all_object;
 
             switch (return_type) {
                 case 'all_groups_array':
-                    res_body = groups_all_array;
+                    res_body = flynn_event.data;
+                    res_body.payload.groups = groups_all_array;
                     break;
                 case 'all_groups_object':
-                    res_body = groups_all_object;
+                    res_body = flynn_event.data;
+                    res_body.payload.groups = groups_all_object;
                     break;
                 default:
-                    res_body = groups_all_array;
+                    res_body = flynn_event.data;
+                    res_body.payload.groups = groups_all_array;
             }
 
             context.res = {
                 status: 200,
                 body: res_body
             };
-
-            context.done(null, 'Final results: Got ' + groups_all_array.length + ' groups.');
+            context.log(message);
+            context.done(null, message);
         });
     });
 
