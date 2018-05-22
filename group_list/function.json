@@ -12,9 +12,16 @@
       "direction": "out"
     },
     {
-      "name": "outputBlob",
+      "name": "allGroupsArrayBlob",
       "type": "blob",
-      "path": "groups-lists/{return_type}.json",
+      "path": "groups-lists/all-groups-array.json",
+      "connection": "wrdsb-igor_STORAGE",
+      "direction": "out"
+    },
+    {
+      "name": "allGroupsObjectBlob",
+      "type": "blob",
+      "path": "groups-lists/all-groups-object.json",
       "connection": "wrdsb-igor_STORAGE",
       "direction": "out"
     },
