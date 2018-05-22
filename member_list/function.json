@@ -12,9 +12,16 @@
       "direction": "out"
     },
     {
-      "name": "outputBlob",
+      "name": "membershipsArrayBlob",
       "type": "blob",
-      "path": "groups-memberships/{group}.json",
+      "path": "groups-memberships/{group}-array.json",
+      "connection": "wrdsb-igor_STORAGE",
+      "direction": "out"
+    },
+    {
+      "name": "membershipsObjectBlob",
+      "type": "blob",
+      "path": "groups-memberships/{group}-object.json",
       "connection": "wrdsb-igor_STORAGE",
       "direction": "out"
     },
