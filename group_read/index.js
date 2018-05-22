@@ -98,7 +98,7 @@ module.exports = function (context, data) {
             } else {
                 var group_object = Object.assign(results[0], results[1]);
                 var message = 'Successfully read group ' + group_id;
-                var event_type = "ca.wrdsb.igor.google_group.read";
+                var event_type = "ca.wrdsb.igor.google_groups.read";
                 var flynn_event = {
                     eventID: `${event_type}-${context.executionContext.invocationId}`,
                     eventType: event_type,
