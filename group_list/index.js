@@ -93,6 +93,7 @@ module.exports = function (context, data) {
                 contentType: "application/json"
             };
             events.push(JSON.stringify(flynn_event));
+
             context.bindings.allGroupsArrayBlob = groups_all_array;
             context.bindings.allGroupsObjectBlob = groups_all_object;
 
@@ -114,6 +115,7 @@ module.exports = function (context, data) {
                 status: 200,
                 body: res_body
             };
+
             context.log(message);
             context.done(null, message);
         });
