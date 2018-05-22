@@ -96,6 +96,7 @@ module.exports = function (context, data) {
                 context.done(err);
                 return;
             } else {
+                var group_object = Object.assign(results[0], results[1]);
                 var message = 'Successfully read group ' + group_id;
                 var event_type = "ca.wrdsb.igor.google_group.read";
                 var flynn_event = {
@@ -116,7 +117,7 @@ module.exports = function (context, data) {
                         function_name: context.executionContext.functionName,
                         invocation_id: context.executionContext.invocationId,
                         payload: {
-                            group: Object.assign(results[0], results[1]),
+                            group: group_object,
                             blobs: [
                                 {
                                     name: group_id,
@@ -133,10 +134,14 @@ module.exports = function (context, data) {
                     contentType: "application/json"
                 };
                 events.push(JSON.stringify(flynn_event));
+
+                context.bindings.outputBlob = group_object
+
                 context.res = {
                     status: 200,
                     body: flynn_event.data
                 };
+
                 context.log(message);
                 context.done(null, message);
             }
