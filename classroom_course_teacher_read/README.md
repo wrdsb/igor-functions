@@ -1,2 +1,2 @@
 # Classroom Course Teacher Read
-Fetch a teacher in a Google Classroom Course
+Fetches a Teacher in a Google Classroom Course.

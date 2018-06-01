@@ -1,0 +1,37 @@
+{
+    "bindings": [
+        {
+            "name": "req",
+            "type": "httpTrigger",
+            "webHookType": "genericJson",
+            "direction": "in"
+        },
+        {
+            "name": "res",
+            "type": "http",
+            "direction": "out"
+        },
+        {
+            "name": "allCoursesArrayBlob",
+            "type": "blob",
+            "path": "classroom-lists/all-courses-array.json",
+            "connection": "wrdsb-igor_STORAGE",
+            "direction": "out"
+        },
+        {
+            "name": "allCoursesObjectBlob",
+            "type": "blob",
+            "path": "classroom-lists/all-courses-object.json",
+            "connection": "wrdsb-igor_STORAGE",
+            "direction": "out"
+        },
+        {
+            "name": "flynnGrid",
+            "type": "eventHub",
+            "path": "flynn-events",
+            "connection": "wrdsb-flynn_EVENTHUB",
+            "direction": "out"
+        }
+    ],
+    "disabled": false
+}

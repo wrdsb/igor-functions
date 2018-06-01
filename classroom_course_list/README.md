@@ -1,2 +1,2 @@
 # Classroom Course List
-List Google Classroom Courses
+Lists Google Classroom Courses.

@@ -1,2 +1,2 @@
 # Classroom Course Student Delete
-Remove a student from a Google Classroom Course
+Removes a Student from a Google Classroom Course.

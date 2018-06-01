@@ -1,2 +1,2 @@
 # Classroom Course Delete
-Delete a Google Classroom Course
+Deletes a Google Classroom Course.

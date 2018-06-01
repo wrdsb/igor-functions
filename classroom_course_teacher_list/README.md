@@ -1,2 +1,2 @@
 # Classroom Course Teacher List
-List teachers in a Google Classroom Course
+Lists Teachers in a Google Classroom Course.

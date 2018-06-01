@@ -1,2 +1,2 @@
 # Classroom Course Read
-Fetch a Google Classroom Course
+Fetches a Google Classroom Course.

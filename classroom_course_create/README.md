@@ -1,2 +1,2 @@
 # Classroom Course Create
-Create a Google Classroom Course
+Creates a Google Classroom Course.

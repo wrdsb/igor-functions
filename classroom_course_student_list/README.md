@@ -1,2 +1,2 @@
 # Classroom Course Student List
-List students in a Google Classroom Course
+Lists Students in a Google Classroom Course.

@@ -1,2 +1,2 @@
 # Classroom Course Student Create
-Add a student to a Google Classroom Course
+Adds a Student to a Google Classroom Course.

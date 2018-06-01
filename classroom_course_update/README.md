@@ -1,2 +1,2 @@
 # Classroom Course Update
-Update a Google Classroom Course
+Updates a Google Classroom Course.
