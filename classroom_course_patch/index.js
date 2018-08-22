@@ -37,8 +37,6 @@ module.exports = function (context, data) {
     };
     events.push(JSON.stringify(flynn_event));
 
-    context.bindings.outputBlob = group_object
-
     context.res = {
         status: 200,
         body: flynn_event.data
