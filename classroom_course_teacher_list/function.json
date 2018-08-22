@@ -32,5 +32,6 @@
             "connection": "wrdsb-flynn_EVENTHUB",
             "direction": "out"
         }
-    ]
+    ],
+    "disabled": false
 }
